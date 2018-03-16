@@ -4,7 +4,6 @@ logfile
 logfile.*
 
 */*.pyc
-conf/
 
 # mongodb data dir
 data/
@@ -27,7 +26,6 @@ FEA2D/log/
 # FEA2D/*.num
 FEA2D/*.str
 
-install/
 
 MCFEA/log
 # MCFEA/*.num
