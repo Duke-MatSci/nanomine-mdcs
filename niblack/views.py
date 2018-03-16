@@ -101,3 +101,12 @@ def check(request):
 		                      )
 	else:
 		return redirect('/login')
+
+
+def Niblack_Placeholder(request):
+	if request.user.is_authenticated():
+			form = DocumentForm()
+			documents = Document.objects.all()
+			return render_to_response('Niblack_placeholder.html',{'documents': documents, 'form': form},context_instance=RequestContext(request))
+        else:
+                return('/login')

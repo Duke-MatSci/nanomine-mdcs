@@ -93,12 +93,14 @@ def notify(request):
 #
 ################################################################################
 def all_options(request):
-    template = loader.get_template('all-options.html')
-    context = RequestContext(request, {
-        '': '',
-    })
-    return HttpResponse(template.render(context))
-
+    if request.user.is_authenticated():        
+        template = loader.get_template('all-options.html')
+        context = RequestContext(request, {
+            '': '',
+        })
+        return HttpResponse(template.render(context))
+    else:
+        return redirect('/login')
 
 ################################################################################
 #

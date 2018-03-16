@@ -10,13 +10,13 @@ from XMLCONV.forms import DocumentForm
 from time import gmtime, strftime
 from operator import itemgetter
 
-import time, math
+import time, math, glob
 import numpy as np
 
 import os.path
 # Create your views here.
 
-ParentDir = '/home/NANOMINE/ONR/Converter_web/'
+ParentDir = '/home/NANOMINE/ONR/Converter_web/archive/'
 
 def home(request):
     if request.user.is_authenticated():
@@ -24,16 +24,12 @@ def home(request):
         timestamp = strftime("%Y%M%d%H%M%S", gmtime())
         
         if request.method == 'POST':
-            
             form = DocumentForm(request.POST, request.FILES)
             if form.is_valid():
                 files = request.FILES.getlist('docfile')
                 for f in files:
                     newdoc = Document(docfile = f)
                     newdoc.save()            
-            
-                excel_file = request.POST.get('excel_file')
-                img_file = request.POST.get('img_file')
  
                 f = open('./XMLCONV/RunCount.num', 'r+')
                 count = f.readlines()
@@ -53,26 +49,56 @@ def home(request):
                 f.write(WorkingDir)
                 f.close()
         
-                
                 # Copy source code to working dir
-                os.system('cp -avr /home/NANOMINE/ONR/Converter_web/code/* '+WorkingDir)
+                os.system('cp -avr /home/NANOMINE/ONR/Converter_web/code_src/* '+WorkingDir)
                 os.system('cp ./XMLCONV/workingdir.str '+WorkingDir)
                 
-        
-                cpfile = 'mv ./XMLCONV/media/'+excel_file+' '+ WorkingDir
+                # move all files to WorkingDir
+                # cpfile = 'mv ./XMLCONV/media/'+excel_file+' '+ WorkingDir
+                cpfile = 'mv ./XMLCONV/media/*'+' '+ WorkingDir
                 print cpfile
                 os.system(cpfile)
                 
-                toPath = 'cd '+WorkingDir+'/Huddle-parsingmsexcel;'
-                call_start = "python run_yzj.py %s" %(excel_file)
-                call_start2 = "python run2_yzj.py %s" %(excel_file)
-                print toPath
-                print call_start + call_start2
+                # Get excel_file from Excel that ends with .xlsx or .xls
+                xlsx_files = glob.glob(WorkingDir + '/*.xlsx')
+                xls_files = glob.glob(WorkingDir + '/*.xls')
+                print 'xlsx files:', xlsx_files
+                print 'xls files:', xls_files
+                
+                # with extension
+                if len(xlsx_files) >= 1:
+                    # excel_file = xlsx_files[0].split('/')[-1]
+                    excel_file = 'data.xlsx'
+                elif len(xls_files) >= 1:
+                    # excel_file = xls_files[0].split('/')[-1]
+                    excel_file = 'data.xls'
+                
+                print 'excel_file', excel_file
+                
+                toPath = 'cd '+WorkingDir+'/src;'
+                call_start = "python compile_xml_051417.py %s" %(excel_file)
                 os.system(toPath + call_start)
+                with open(WorkingDir + '/src/data/ID.txt') as _f:
+                    doc_ID = _f.read()
+                call_start2 = "python upload_to_db.py %s" %(doc_ID)
+                print call_start
+                print call_start2
                 os.system(toPath + call_start2)
                 
-                for i in img_file.split(';'):
-                    cpimg = 'mv ./XMLCONV/media/'+i+' /var/www/html/nanomine/XMLCONV/media'
+                all_files = glob.glob(WorkingDir + '/*.*')
+                img_file = list()
+                for f in all_files:
+                    if f.split('.')[-1] in ['png', 'jpg', 'tif']:
+                        img_file.append(f)
+                print 'img_file:', img_file
+                
+                cmd_mkdir_media = 'mkdir /var/www/html/nanomine/XMLCONV/media/' + str(count[0])
+                os.system(cmd_mkdir_media)
+                    
+                # copy image files to html folder
+                for i in img_file:                    
+
+                    cpimg = 'cp '+i+' /var/www/html/nanomine/XMLCONV/media/'+ str(count[0])
                     os.system(cpimg)
  
  
@@ -84,53 +110,3 @@ def home(request):
         return render(request, 'XMLCONV.html', {'form': form}, context_instance=RequestContext(request))
     else:
         return redirect('/login')
-    
-    
-    
-#def runmodel(request):
-#    if request.user.is_authenticated():
-#        global JOBID, WorkingDir
-
-		
-		# run model to nuhup
-
-#        f = open('./XMLCONV/RunCount.num', 'r+')
-#        count = f.readlines()
-#        print 'total count so far is:'
-#        print count
-#        f.seek(0)
-#        newcount = int(count[0]) + 1
-#        f.write(str(newcount))
-#        f.close()
-        
-#        WorkingDir = ParentDir + timestamp + '_' + str(int(count[0]))
-#        if not os.path.exists(WorkingDir):
-#            os.makedirs(WorkingDir)
-#            print '---------------------------Created working folder'
-        
-#        f = open('./XMLCONV/workingdir.str', 'w+')
-#        f.write(WorkingDir)
-#        f.close()
-
-        
-        # Copy source code to working dir
-#        os.system('cp /home/NANOMINE/ONR/Converter_web/code/* '+WorkingDir)
-#        os.system('cp ./XMLCONV/workingdir.str '+WorkingDir)
-        
-
-#        cpfile = 'mv ./XMLCONV/media/* ' + WorkingDir
-#        print cpfile
-#        os.system(cpfile)
-        
-#        toPath = 'cd '+WorkingDir+'/Huddle-parsingmsexcel;'
-#        call_start = "python run_yzj.py %s" %(excel_file)
-#        print call_start
-#        os.system(toPath + call_start)
-
-
-
-
-
-#       return render_to_response("XMLCONVRun.html", locals(), context_instance=RequestContext(request))
-#    else:
-#        return redirect('/login')

@@ -72,3 +72,12 @@ def check(request):
 		                      )
 	else:
 		return redirect('/login')
+
+		
+def Descriptor_Placeholder(request):
+	if request.user.is_authenticated():
+			form = DocumentForm()
+			documents = Document.objects.all()
+			return render_to_response('Descriptors_placeholder.html',{'documents': documents, 'form': form},context_instance=RequestContext(request))
+        else:
+                return('/login')
