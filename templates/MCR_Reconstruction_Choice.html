@@ -1,0 +1,58 @@
+<!-- 
+################################################################################
+#
+# File Name: Two_pt_MCR_landing.html
+# Application: templates
+# Description: 
+#
+# Modified by: Akshay Iyer, July 7, 2017
+# Customized for NanoMine
+#
+################################################################################
+-->
+{% extends 'base_featured.html' %}
+{% load staticfiles %}
+
+
+{% block title %}<h1><span>Microstructure Reconstruction</span></h1>{% endblock %}
+{% block menu %}{% include 'menu.html' with active_tab='stats_tool' %}{% endblock %}
+{% block content%}
+
+<h3>Description</h3>
+	<p> <strong>1) Correlation Functions :</strong>Reconstruction using correlation functions employs the Yeong-Torquato method which involves Simulated annealing based random pixel swapping
+		to match the correlation function of reconstructed image to that of input image. The choice of correlation function to be matched and the number of reconstructed images can be chosen by user.</p> 
+	
+	<p> <strong>2) Physical Descriptors (Coming Soon!) :</strong>Reconstruction methodology will depend on the descriptors chosen. This webtool follows a four step hierarchical methodology with 
+	descriptors at higher scale being considered first. Please refer to articles by Xu et.al. (see references) for more details. </p> 
+	
+	<p> <strong>3) Spectral Density Function (Coming Soon!) :</strong>The reconstruction method depends on the type of microstructure. For channel type microstructure, a level cut Gaussian random field is used. On the other
+		hand, a random disk packing algorithm is employed for microstructures with disk shaped filler. Please refer to article by Yu et.al.(see references) for more details.</p> 
+	
+	<p>Choose the characterization method from the options below.</p>
+	<p><strong>NOTE: Images must be binarized</strong></p>
+<br>
+	<input type="button" onclick="location.href='http://nanomine.northwestern.edu:8000/Two_pt_MCR_Image_Submission';" value="Correlation Function" />
+<br><div>
+</br>
+	<input type="button" onclick="location.href='http://nanomine.northwestern.edu:8000/RECON/';" value="Physical Descriptor" />
+</div>
+<br>
+<div>
+	<input type="button" onclick="location.href='/SDF_Reconstruction';" value="Spectral Density Function">
+</div>
+<br>
+<div>
+	<input type="button" onclick="location.href=' http://nanomine.northwestern.edu:8000/Two_pt_MCR_CheckResult';" value="Check result for previous submission" />
+</div>
+</br>
+<hr>
+	<h4>Reference</h4>
+	<p>Rintoul, M.D. and Torquato, S., 1997. Reconstruction of the structure of dispersions. Journal of Colloid and Interface Science, 186(2), pp.467-476.</p>
+	<p>Yeong,C. and Torquato,S., 1998. Reconstructing random media Physical Review E, vol. 57, no. 1, p. 495</p>
+	<p>Liu, Y., Greene, M.S., Chen, W., Dikin, D., Liu, W.K., <i>Computational Microstructure Characterization and Reconstruction for Stochastic Multiscale Design</i>, Computer Aided Design, 45 (1), 65-76, 2013 </p>
+	<p>Yu, S., Zhang, Y., Wang, C., Lee, W.K., Dong, B., Odom, T.W., Sun, C. and Chen, W., 2017. Characterization and design of functional quasi-random nanostructured materials using spectral density function. Journal of Mechanical Design, 139(7), p.071401.</p>
+	<p>Xu, H., Li, Y., Brinson, C. and Chen, W., 2014. A descriptor-based design methodology for developing heterogeneous microstructural materials system. Journal of Mechanical Design, 136(5), p.051007.</p>
+	<p>Xu, H., Dikin, D.A., Burkhart, C. and Chen, W., 2014. Descriptor-based methodology for statistical characterization and 3D reconstruction of microstructural materials. Computational Materials Science, 85, pp.206-216.</p>
+
+
+{% endblock %}
