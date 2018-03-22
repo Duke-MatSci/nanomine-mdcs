@@ -1,0 +1,3 @@
+#!/bin/bash
+mongo -u $NM_MONGO_USER -p $NM_MONGO_PWD --authenticationDatabase admin
+
