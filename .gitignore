@@ -4,6 +4,7 @@ logfile
 logfile.*
 
 */*.pyc
+*pyc
 
 # mongodb data dir
 data/
