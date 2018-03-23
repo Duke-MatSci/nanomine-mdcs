@@ -7,6 +7,7 @@ logfile.*
 *pyc
 
 **/,idea/
+.idea/
 
 # mongodb data dir
 data/
