@@ -1,3 +1,3 @@
 #!/bin/bash
-mongo -u $NM_MONGO_USER -p $NM_MONGO_PWD --port=$NM_PROD_MONGO_PORT --authenticationDatabase admin
+mongo -u $NM_MONGO_USER -p $NM_MONGO_PWD --port=$NM_PROD_MONGO_PORT --authenticationDatabase admin --shell nanomongo.js
 
