@@ -1,7 +1,8 @@
 FROM httpd:2.4
+copy ./nanomine-httpd-ssl.conf /usr/local/apache2/conf/extra/httpd-ssl.conf
 copy ./nanomine-httpd.conf /usr/local/apache2/conf/httpd.conf
-copy nanomine_oit_duke_edu.key /usr/local/apache2/conf/server.key
-copy nanomine_oit_duke_edu_cert.cer /usr/local/apache2/conf/server.crt
+#now, the key and crt can go into /usr/local/apache2/conf/certs
+#which can be externalized via docker -v /PATH/mycertsdir:/usr/local/apache2/conf/certs
 
 
 

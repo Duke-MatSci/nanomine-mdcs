@@ -1,0 +1,4 @@
+#!/bin/bash
+docker run -dit -p 443:443 -v/home/ed151/nanomine/docker/apache:/usr/local/apache2/conf/certs --name apache apache
+#docker run -dit -p 80:80 -v/home/ed151/nanomine/docker/apache:/usr/local/apache2/conf/certs --name apache apache
+
