@@ -1,4 +1,9 @@
 #!/bin/bash
-docker run -dit -p 443:443 -v/home/ed151/nanomine/docker/apache:/usr/local/apache2/conf/certs --name apache apache
-#docker run -dit -p 80:80 -v/home/ed151/nanomine/docker/apache:/usr/local/apache2/conf/certs --name apache apache
+export nanohome=/Users/erikd/nanomine
+export apachebase=/usr/local/apache2
+export nanobase=${nanohome}/20180322_mdcs
+export venv=${nanobase}/venv
+export nanomine=${nanobase}/nanomine
+#docker run -dit -p 443:443 -v/home/ed151/nanomine/docker/apache:/usr/local/apache2/conf/certs --name apache apache
+docker run -dit -p 80:80 -v ${nanohome}/nanomine_certs:${apachebase}/conf/certs -v ${nanomine}/static:/usr/local/nanomine-static -v ${nanomine}/mgi:/usr/local/nanomine-project -v ${venv}:/usr/local/nanomine-env  --name apache apache
 
