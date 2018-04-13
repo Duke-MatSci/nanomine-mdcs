@@ -1,5 +1,5 @@
 # NanoMine
-Working repo for https://nanomine.oit.duke.edu. Forked from https://github.com/usnistgov/MDCS (ver. 1.3)
+Working repo for [NanoMine](ttps://nanomine.oit.duke.edu). Forked from [NIST MDCS ver 1.3](https://github.com/usnistgov/MDCS)
 
 Contributors:
 + He (Richard) Zhao
