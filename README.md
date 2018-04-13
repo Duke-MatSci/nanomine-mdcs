@@ -8,7 +8,7 @@ Contributors:
 + Yanhui Huang
 + Hao Zhong
 
-Advanced Materials Laboratory at Duke University (http://brinsonlab.pratt.duke.edu/), 
+[Advanced Materials Laboratory](http://brinsonlab.pratt.duke.edu/) at [Duke University](http://matsci.duke.edu/), 
 
 2018/04/12
 
