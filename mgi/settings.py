@@ -78,6 +78,7 @@ MONGO_MGI_USER = os.environ['NM_PROD_USER']
 MONGO_MGI_PASSWORD = os.environ['NM_PROD_PWD']
 MONGO_PORT = os.environ['NM_PROD_MONGO_PORT']
 MONGODB_URI = "mongodb://" + MONGO_MGI_USER + ":" + MONGO_MGI_PASSWORD + "@localhost:"+str(MONGO_PORT)+"/mgi"
+print("MONGODB_URI: " + MONGODB_URI)
 connect("mgi", host=MONGODB_URI)
 
 # BLOB Hoster module parameters
@@ -132,15 +133,15 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mongoengine.django.mongo_auth',
+    #'mongoengine.django.mongo_auth',
     'rest_framework',
     'rest_framework_swagger',
     'oauth2_provider',
-    'admin_mdcs',
     'api',
     'curate',
     'exporter',
     'explore',
+    'admin_mdcs',
     'compose',
     'modules',
     ## ZJY 072716
@@ -251,6 +252,7 @@ STATICFILES_FINDERS = (
 # https://docs.djangoproject.com/en/1.7/topics/logging/
 
 SITE_ROOT = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..').replace('\\', '/')
+print("site root: " + SITE_ROOT)
 
 LOGGING = {
     'version': 1,
@@ -264,7 +266,7 @@ LOGGING = {
     'handlers': {
         'null': {
             'level':'DEBUG',
-            'class':'django.utils.log.NullHandler',
+            'class':'logging.NullHandler',
         },
         'logfile': {
             'level':'DEBUG',
