@@ -8,7 +8,6 @@ run yum -y install libxml2-devel
 run yum -y install libxslt-devel
 workdir nanomine
 add nanomine.tgz ./
-run ls /nanomine
 run pip install -r /nanomine/docs/requirements.txt
 
 
