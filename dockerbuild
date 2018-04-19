@@ -1,0 +1,4 @@
+#!/bin/bash
+rm nanomine.tgz
+tar zcvf nanomine.tgz *
+docker build -t nm:1 .

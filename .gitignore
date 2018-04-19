@@ -3,6 +3,8 @@ db.sqlite3
 logfile
 logfile.*
 
+nanomine.tgz
+
 */*.pyc
 *pyc
 
