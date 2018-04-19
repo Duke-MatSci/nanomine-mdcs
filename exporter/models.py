@@ -58,7 +58,7 @@ class Exporter(object):
                 path = "{!s}/{!s} {!s}/{!s}".format(self.name,self.name,instance,result['title'])
                 zip.writestr(path, result['content'].encode('utf-8'))
 
-         # fix for Linux zip files read in Windows
+        # fix for Linux zip files read in Windows
         for xmlFile in zip.filelist:
             xmlFile.create_system = 0
 
