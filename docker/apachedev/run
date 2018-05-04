@@ -1,3 +1,5 @@
 #!/bin/bash
-docker run -dit -p 80:80 --name apache apachedev
+docker stop apache
+docker rm apache
+docker run --network="host" -dit -p 80:80 --name apache apachedev
 
