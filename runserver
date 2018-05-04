@@ -1,6 +1,6 @@
 #!/bin/bash
 # run the python server on localhost or a non-exposed other host
 # Adjust the apache proxy to point to the correct host/port
-source ~/nanomine_prod_env
-source mdcsvenv/bin/activate
+source ~nanomine/nanomine_prod_env
+source ~nanomine/nanomine/bin/activate
 nohup python Production/mdcs/manage.py runserver localhost:8000 --noreload &
