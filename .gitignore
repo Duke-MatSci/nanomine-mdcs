@@ -6,6 +6,7 @@ logfile.*
 nanomine.tgz
 
 venv/
+nohup.out
 
 */*.pyc
 *pyc

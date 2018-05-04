@@ -94,6 +94,11 @@ HANDLE_SERVER_SCHEMA = ''
 HANDLE_SERVER_USER = ''
 HANDLE_SERVER_PSWD = ''
 
+#email configuration
+EMAIL_HOST = os.environ['NM_EMAIL_HOST']
+EMAIL_PORT = os.environ['NM_EMAIL_PORT']
+EMAIL_USE_TLS = true
+
 # Customization: MGI
 CUSTOM_TITLE = 'NanoMine'
 CUSTOM_SUBTITLE = 'Material Informatics for Polymer Nanocomposites'
