@@ -3,4 +3,6 @@
 # Adjust the apache proxy to point to the correct host/port
 source ~nanomine/nanomine_prod_env
 source ~nanomine/nanomine/bin/activate
-nohup python Production/mdcs/manage.py runserver localhost:8000 --noreload &
+cd ~nanomine/nanomine
+python manage.py migrate
+nohup python manage.py runserver localhost:8000 --noreload &
