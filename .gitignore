@@ -5,6 +5,8 @@ logfile.*
 
 nanomine.tgz
 
+venv/
+
 */*.pyc
 *pyc
 
