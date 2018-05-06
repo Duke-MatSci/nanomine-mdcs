@@ -97,7 +97,7 @@ HANDLE_SERVER_PSWD = ''
 #email configuration
 EMAIL_HOST = os.environ['NM_EMAIL_HOST']
 EMAIL_PORT = os.environ['NM_EMAIL_PORT']
-EMAIL_USE_TLS = true
+EMAIL_USE_TLS = True
 
 # Customization: MGI
 CUSTOM_TITLE = 'NanoMine'
