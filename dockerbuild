@@ -1,4 +1,9 @@
 #!/bin/bash
+# for now when testing docker, comment the rm and tar statements below unless a change is made to the app code
 rm nanomine.tgz
 tar zcvf nanomine.tgz *
-docker build -t nm:1 .
+#using docker-compose now - docker build -t nm:1 .
+pushd docker/dev
+pwd
+docker-compose up &
+popd
