@@ -1,5 +1,8 @@
 #!/bin/bash
+source ~nanomine/nanomine_prod_env
 docker stop apache
 docker rm apache
-docker run --network="host" -dit -p 80:80 --name apache apachedev
+export INT_DOCS=/usr/local/apache2/htdocs
+export EXT_DOCS=${NM_WEB_STATIC}
+docker run --network="host" -dit -v${EXT_DOCS}:${INT_DOCS} --name apache apachedev
 
