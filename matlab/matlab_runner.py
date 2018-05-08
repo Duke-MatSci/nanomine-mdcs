@@ -45,6 +45,6 @@ def matlab_runner(matlab_pgm_dir, matlab_pgm, matlab_pgm_params, username, email
 
     matlab_base_params = '-nodesktop -nodisplay -nosplash -r ' + '\'cd ' + server_base + '/' + matlab_pgm_dir + ';' + matlab_pgm + \
                          formatparams(matlab_pgm_params)
-    print('built params: ' + matlab_base_params) #this is incomplete, but need to get path working to test this 
+    print('built params: ' + matlab_base_params) #this is incomplete, but need to get path working to test this
     #execute matlab job in the background
     return jobid

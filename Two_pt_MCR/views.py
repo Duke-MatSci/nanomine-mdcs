@@ -43,8 +43,8 @@ def submit_image(request):
                 server_base = os.environ['NM_HOME']
                 output_base = os.environ['NM_JOB_DATA']
                 work_dir = server_base
-                os.chdir(work_dir)
-                os.system('pwd')
+                #os.chdir(work_dir)
+                #os.system('pwd')
                 user_email_id = request.POST['email_id']
                 if not user_email_id:
                     return HttpResponse(
