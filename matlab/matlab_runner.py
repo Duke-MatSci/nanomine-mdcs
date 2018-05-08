@@ -17,7 +17,7 @@
 
 import os
 import uuid
-from matlab import matlab_job
+import matlab_job
 
 def formatparams(parms) :
     s = ""

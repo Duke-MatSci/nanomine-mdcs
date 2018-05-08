@@ -21,11 +21,17 @@
 ################################################################################
 
 import os
+import sys
 
 VERSION = "1.3"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+matlab = os.environ['NM_SERVER_DIR']+'/matlab'
+sys.path.insert(0, matlab) 
+print('added ' + matlab + ' to python path')
+print('sys.path: ' + str(sys.path))
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))

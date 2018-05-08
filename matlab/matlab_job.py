@@ -17,6 +17,7 @@
 def matlab_job(matlab_proc, matlab_param_str, username, email, email_template_name, server_base, output_base) :
     # create jobid as UUID '.' datetime
     # Read email template into memory and replace parameters
+    pass
 
 
 
