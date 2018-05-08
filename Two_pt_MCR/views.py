@@ -96,7 +96,7 @@ def submit_image(request):
 
                 form = DocumentForm()
                 documents = Document.objects.all()
-                return render_to_response('Two_pt_MCR_submission_notify.html', {'documents': documents, 'form': form},
+                return render_to_response('Two_pt_MCR_submission_notify.html', {'jobid': jobid,'documents': documents, 'form': form},
                                           context_instance=RequestContext(request))
             else:
                 form = DocumentForm()
