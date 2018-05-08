@@ -10,6 +10,7 @@ from contextlib import contextmanager
 
 from Two_pt_MCR.models import Document
 from Two_pt_MCR.forms import *
+from matlab import matlab_runner
 
 import xmltodict
 import os
@@ -39,7 +40,9 @@ def submit_image(request):
                 newdoc = Document(docfile=request.FILES['docfile'])
                 newdoc.save()
                 file = request.FILES['docfile']
-                work_dir = os.environ['NM_HOME']
+                server_base = os.environ['NM_HOME']
+                output_base = os.environ['NM_JOB_DATA']
+                work_dir = server_base
                 os.chdir(work_dir)
                 os.system('pwd')
                 user_email_id = request.POST['email_id']
@@ -48,19 +51,17 @@ def submit_image(request):
                         '<h3>Please provide an email address to receive Job ID!</h3>')  # if no email id was provided, report error
                 input_type = request.POST['Characterize_input_type']
                 if input_type == "1":
-                    if not str(file).endswith(".jpg"):
-                        if not str(file).endswith(".JPG"):
-                            if not str(file).endswith(".tif"):
-                                if not str(file).endswith(".png"):
-                                    if not str(file).endswith(".PNG"):
-                                        if not str(file).endswith(".TIF"):
-                                            return HttpResponse(
-                                                '<h3>Please upload a JPEG file</h3>')  # report wrong file format
+                    #p=re.compile('.*(\\.([Jj][Pp][Gg])|([Tt][Ii][Ff])|([Pp][Nn][Gg]))$'); p.match(str(file))
+                    if not str(file).lower().endswith(".jpg"):
+                        if not str(file).lower().endswith(".tif"):
+                            if not str(file).lower().endswith(".png"):
+                                return HttpResponse(
+                                    '<h3>Please upload a JPEG file</h3>')  # report wrong file format
                 elif input_type == "2":
-                    if not str(file).endswith(".zip"):
+                    if not str(file).lower().endswith(".zip"):
                         return HttpResponse('<h3>Please upload ZIP  file</h3>')  # report wrong file format
                 else:
-                    if not str(file).endswith(".mat"):
+                    if not str(file).lower().endswith(".mat"):
                         return HttpResponse('<h3>Please upload .mat file</h3>')  # report wrong file format
 
                 user_name = None
@@ -68,6 +69,7 @@ def submit_image(request):
                 num_recon = request.POST['num_recon']
                 correlation_choice = request.POST['correlation_choice']
                 # Run MATLAB when file is valid
+                """bluedevil-oit - replaced
                 os.system(
                     'matlab -nodesktop -nodisplay -nosplash -r "cd '+work_dir+'/Two_pt_MCR/mfiles;run_2ptMCR(\'"' + str(
                         user_name) + '"\',"' + str(num_recon) + '","' + str(input_type) + '","' + str(
@@ -76,8 +78,22 @@ def submit_image(request):
                 mail_to_user = 'echo sendmail ' + user_email_id + ' < '+work_dir+'/Two_pt_MCR/email.html'
                 os.system(mail_to_user)
                 #os.system('sendmail back2akshay@gmail.com < /home/NANOMINE/Production/mdcs/Two_pt_MCR/email.html')
-                form = DocumentForm();
-                documents = Document.objects.all();
+                """
+
+                job_data_uri = os.environ['NM_JOB_DATA_URI']
+                link_base = os.environ['NM_WEB_ADDR'] + job_data_uri
+
+                matlab_pgm_dir = '/Two_pt_MCR/mfiles'
+                matlab_pgm = 'run_2ptMCR'
+                matlab_params = (str(user_name), str(num_recon), str(input_type), str(correlation_choice),
+                                       str(file))
+                jobid = matlab_runner(matlab_pgm_dir, matlab_pgm,
+                                      matlab_params,
+                                      user_name, user_email_id, server_base, output_base, link_base)
+
+
+                form = DocumentForm()
+                documents = Document.objects.all()
                 return render_to_response('Two_pt_MCR_submission_notify.html', {'documents': documents, 'form': form},
                                           context_instance=RequestContext(request))
             else:
@@ -137,7 +153,7 @@ def submission_notify(request):
         return render_to_response('Two_pt_MCR_submission_notify.html', {'documents': documents, 'form': form},
                                   context_instance=RequestContext(request))
     else:
-        return ('/login')
+        return '/login'
 
 
 def Characterize_Choice(request):
@@ -181,9 +197,9 @@ def Characterize(request):
                 user_email_id = request.POST['email_id']
                 if not user_email_id:  # if no email provided, report error
                     return HttpResponse('<h3>Please provide an email address to receive Job ID!</h3>')
-                work_dir = '/home/NANOMINE/Production/mdcs'
+                work_dir = os.environ['NM_HOME']
                 os.chdir(work_dir)
-                os.system('pwd')
+#                os.system('pwd')
                 file = request.FILES['docfile']  # get name of incoming file
                 print type(str(file))
                 input_type = request.POST['Characterize_input_type']
@@ -210,12 +226,12 @@ def Characterize(request):
                 print (user_name)
                 # Run MATLAB when file is valid
                 os.system(
-                    'matlab -nodesktop -nodisplay -nosplash -r "cd /home/NANOMINE/Production/mdcs/Two_pt_MCR/mfiles;Characterize(\'"' + user_name + '"\',"' + str(
+                    'matlab -nodesktop -nodisplay -nosplash -r "cd '+work_dir+'/Two_pt_MCR/mfiles;Characterize(\'"' + user_name + '"\',"' + str(
                         input_type) + '","' + str(correlation_choice) + '",\'"' + str(file) + '"\');exit"')
 
-                mail_to_user = 'sendmail ' + user_email_id + ' < /home/NANOMINE/Production/mdcs/Two_pt_MCR/email.html'
+                mail_to_user = 'echo sendmail ' + user_email_id + ' < '+work_dir+'/Two_pt_MCR/email.html'
                 os.system(mail_to_user)
-                os.system('sendmail back2akshay@gmail.com < /home/NANOMINE/Production/mdcs/Two_pt_MCR/email.html')
+                #os.system('sendmail back2akshay@gmail.com < /home/NANOMINE/Production/mdcs/Two_pt_MCR/email.html')
                 form = DocumentForm()
                 documents = Document.objects.all()
                 return render_to_response("MCR_Characterize_Check_Result.html", {'documents': documents, 'form': form},
