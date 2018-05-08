@@ -10,7 +10,7 @@ from contextlib import contextmanager
 
 from Two_pt_MCR.models import Document
 from Two_pt_MCR.forms import *
-import matlab_runner
+from matlab_runner import matlab_runner
 
 import xmltodict
 import os
@@ -85,11 +85,13 @@ def submit_image(request):
 
                 matlab_pgm_dir = '/Two_pt_MCR/mfiles'
                 matlab_pgm = 'run_2ptMCR'
+                email_template_name = 'email.html'
                 matlab_params = (str(user_name), str(num_recon), str(input_type), str(correlation_choice),
                                        str(file))
                 jobid = matlab_runner(matlab_pgm_dir, matlab_pgm,
                                       matlab_params,
-                                      user_name, user_email_id, server_base, output_base, link_base)
+                                      user_name,
+                                      user_email_id, email_template_name, server_base, output_base, link_base)
 
 
                 form = DocumentForm()
