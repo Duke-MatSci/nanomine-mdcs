@@ -10,7 +10,7 @@ from contextlib import contextmanager
 
 from Two_pt_MCR.models import Document
 from Two_pt_MCR.forms import *
-import matlab_runner
+from matlab_runner import matlab_runner
 
 import xmltodict
 import os
