@@ -31,17 +31,20 @@ parser.add_argument('--jobdatauri',nargs=1)
 parser.add_argument('--matlabparams',nargs='*')
 args =  parser.parse_args()
 print('Args: ' + str(args));
-#try:
-mlparams = ""
-for mlp in args.matlabparams:
-    mlparams += '\''+mlp+'\','
-mlparams = mlparams.rstrip(',')
+try:
+    mlparams = ""
+    for mlp in args.matlabparams:
+        mlparams += '\''+mlp+'\','
+    mlparams = mlparams.rstrip(',')
 
-runstr = '\"cd ' + args.serverbase[0] + args.pgmdir[0] +';' + args.pgm[0] + '(' + mlparams + ');exit;\"'
-print('runstr: ' + runstr);
-p = subprocess.Popen(["echo","-nodesktop","-nodisplay","-nosplash","-nojvm","-r",runstr],shell=True)
-p.wait()
-#except BaseException as be:
-#  logging.error('Exception running matlab program: ' + str(be))
+    runstr = '\"cd ' + args.serverbase[0] + args.pgmdir[0] +';' + args.pgm[0] + '(' + mlparams + ');exit;\"'
+    print('runstr: ' + runstr);
+    p = subprocess.Popen(["echo","-nodesktop","-nodisplay","-nosplash","-nojvm","-r",runstr],shell=True)
+    p.wait()
+    with open( args.emailtemplate[0] ) as ftemplate:
+        templatetext = ftemplate.read()
+    print(templatetext)
+except BaseException as be:
+    logging.error('Exception running matlab program: ' + str(be))
 
 

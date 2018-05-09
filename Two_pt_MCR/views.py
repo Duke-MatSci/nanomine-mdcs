@@ -85,7 +85,7 @@ def submit_image(request):
 
                 matlab_pgm_dir = '/Two_pt_MCR/mfiles'
                 matlab_pgm = 'run_2ptMCR'
-                email_template_name = 'two_pt_mcr_email.html'
+                email_template_name = str(server_base)+'/Two_pt_MCR/two_pt_mcr_email.html'
                 jobid = get_job_id()
                 matlab_params = [str(user_name), str(num_recon), str(input_type), str(correlation_choice),
                                        str(file), str(output_base), str(server_base), str(jobid)]
