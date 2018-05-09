@@ -1,4 +1,4 @@
-function run2ptMCR(user_name,num_recon,input_type,correlation_choice,file_name)
+function run2ptMCR(user_name,num_recon,input_type,correlation_choice,file_name, output_base_dir, input_base_dir, Job_ID)
 
 %%% Input Types %%
 % 1 : Single JPEG Image
@@ -19,7 +19,7 @@ year = c(1); month = c(2); date = c(3);hour=c(4); minute=c(5); seconds=c(6); % d
 c(1) = c(1) + 7;
 c(2) = c(2) + 13;
 c(3) = c(3) + 17;
-Job_ID = [num2str(c(2)),num2str(c(3)),num2str(c(4)),fliplr(num2str(c(1))),num2str(c(5)),num2str(c(6))];
+% ED151 Job_ID = [num2str(c(2)),num2str(c(3)),num2str(c(4)),fliplr(num2str(c(1))),num2str(c(5)),num2str(c(6))];
 %%%
 
 
