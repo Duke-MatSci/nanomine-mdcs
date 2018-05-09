@@ -18,6 +18,7 @@
 import os
 import uuid
 import logging
+import subprocess
 
 
 def formatparams(parms):
@@ -52,4 +53,9 @@ def matlab_runner(jobid, matlab_pgm_dir, matlab_pgm, matlab_pgm_params, username
                          formatparams(matlab_pgm_params)
     logger.info('built params: ' + matlab_base_params)  # this is incomplete, but need to get path working to test this
     # execute matlab job in the background
+    p = subprocess.Popen("env",stdout=subprocess.PIPE, shell=True)
+    (output, err) = p.communicate()
+    p_status = p.wait()
+    logger.info('         statusenv: ' + str(p_status));
+    logger.info('  externalized env: ' + output);
     return jobid
