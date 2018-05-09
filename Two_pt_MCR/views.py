@@ -85,10 +85,12 @@ def submit_image(request):
 
                 matlab_pgm_dir = '/Two_pt_MCR/mfiles'
                 matlab_pgm = 'run_2ptMCR'
-                email_template_name = 'email.html'
+                email_template_name = 'two_pt_mcr_email.html'
                 jobid = get_job_id()
                 matlab_params = (str(user_name), str(num_recon), str(input_type), str(correlation_choice),
                                        str(file), str(output_base), str(server_base), str(jobid))
+
+                # NOTE: matlab_runner will format and send the email after the matlab program completes
                 matlab_runner(jobid, matlab_pgm_dir, matlab_pgm,
                         matlab_params,
                         user_name,
