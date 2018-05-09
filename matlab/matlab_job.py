@@ -13,7 +13,10 @@
 #    --jobdatauri JOBDATAURI     - Job Data URI where JOBID directory will exist in web space
 #    --matlabparams MATLABPARAMS - Appropriately quoted strings to send as parameters to matlab program
 import logging
+import subprocess
 import argparse
+logger = logging.getLogger(__name__)
+
 parser = argparse.ArgumentParser(description='MATLAB job argument parser')
 parser.add_argument('--jobid',nargs=1)
 parser.add_argument('--pgmdir',nargs=1)
@@ -26,10 +29,18 @@ parser.add_argument('--outputbase',nargs=1)
 parser.add_argument('--linkbase',nargs=1)
 parser.add_argument('--jobdatauri',nargs=1)
 parser.add_argument('--matlabparams',nargs='*')
-print parser.parse_args()
+args =  parser.parse_args()
 
+try:
+  mlparams = ""
+  for mlp in args.matlabparams:
+      mlparams += '\''+mlp+'\','
+  mlparams = mlparams.rstrip(',')
 
-
-
+  runstr = '\"cd ' + serverbase + pgmdir +';' + pgm + '(' + mlparams + ');exit;\"'
+  p = subprocess.Popen(["echo","-nodesktop","-nodisplay","-nosplash","-nojvm","-r",runstr],shell=True)
+  p.wait()
+except BaseException as be:
+  logging.error('Exception running matlab program: ' + str(be))
 
 

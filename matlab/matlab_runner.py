@@ -33,14 +33,11 @@ def get_job_id():
     return 'matlab-' + str(uuid.uuid4())
 
 
-def matlab_runner(jobid, matlab_pgm_dir, matlab_pgm, matlab_pgm_params, username, email, email_template_name,
-                  server_base, output_base, link_base, job_data_uri):
+def matlab_runner(jobid, username, email, email_template_name,
+                  server_base, output_base, link_base, job_data_uri, matlab_pgm_dir, matlab_pgm, matlab_pgm_params):
     logger = logging.getLogger(__name__)
 
     logger.info('              jobid: ' + jobid)
-    logger.info('     MATLAB pgm dir: ' + matlab_pgm_dir)
-    logger.info('        MATLAB proc: ' + matlab_pgm)
-    logger.info('   MATLAB pgm parms: ' + str(matlab_pgm_params))
     logger.info('           username: ' + username)
     logger.info('              email: ' + email)
     logger.info('email_template_name: ' + email_template_name)
@@ -48,14 +45,11 @@ def matlab_runner(jobid, matlab_pgm_dir, matlab_pgm, matlab_pgm_params, username
     logger.info('        output_base: ' + output_base)
     logger.info('          link_base: ' + link_base)
     logger.info('       job_data_uri: ' + job_data_uri)
+    logger.info('     MATLAB pgm dir: ' + matlab_pgm_dir)
+    logger.info('        MATLAB proc: ' + matlab_pgm)
+    logger.info('   MATLAB pgm parms: ' + str(matlab_pgm_params))
 
-    matlab_base_params = '-nodesktop -nodisplay -nosplash -r ' + '\'cd ' + server_base + '/' + matlab_pgm_dir + ';' + matlab_pgm + \
-                         formatparams(matlab_pgm_params)
-    logger.info('built params: ' + matlab_base_params)  # this is incomplete, but need to get path working to test this
     # execute matlab job in the background
-    p = subprocess.Popen("env",stdout=subprocess.PIPE, shell=True)
-    (output, err) = p.communicate()
-    p_status = p.wait()
-    logger.info('         statusenv: ' + str(p_status));
-    logger.info('  externalized env: ' + output);
-    return jobid
+    pid = subprocess.Popen([ 'python', server_base + '/matlab/matlab_job.py', '--jobid',jobid, '--matlabparams', str(matlab_pgm_params)]).pid
+    return pid
+

@@ -91,10 +91,11 @@ def submit_image(request):
                                        str(file), str(output_base), str(server_base), str(jobid))
 
                 # NOTE: matlab_runner will format and send the email after the matlab program completes
-                matlab_runner(jobid, matlab_pgm_dir, matlab_pgm,
-                        matlab_params, #list should be in same order as expected by matlab program
+                matlab_runner(jobid,
                         user_name,
-                        user_email_id, email_template_name, server_base, output_base, link_base, job_data_uri)
+                        user_email_id, email_template_name, server_base, output_base, link_base, job_data_uri,matlab_pgm_dir, matlab_pgm, 
+                        matlab_params, #list should be in same order as expected by matlab program
+                        )
 
 
                 form = DocumentForm()
