@@ -29,23 +29,23 @@ def formatparams(parms) :
 
 
 def matlab_runner(matlab_pgm_dir, matlab_pgm, matlab_pgm_params, username, email, email_template_name, server_base, output_base,link_base) :
-
+    logger = logging.getLogger(__name__)
     # create jobid as matlab-UUID
     jobid = 'matlab'+str(uuid.uuid4())
 
-    logging.info('        MATLAB proc: ' + matlab_pgm)
-    logging.info('     MATLAB pgm dir: ' + matlab_pgm_dir)
-    logging.info('   MATLAB pgm parms: '.join(matlab_pgm_params))
-    logging.info('           username: ' + username)
-    logging.info('              email: ' + email)
-    logging.info('email_template_name: ' + email_template_name)
-    logging.info('       server_base : ' + server_base)
-    logging.info('        output_base: ' + output_base)
-    logging.info('          link_base: ' + link_base)
-    logging.info('              jobid: ' + jobid)
+    logger.info('        MATLAB proc: ' + matlab_pgm)
+    logger.info('     MATLAB pgm dir: ' + matlab_pgm_dir)
+    logger.info('   MATLAB pgm parms: '.join(matlab_pgm_params))
+    logger.info('           username: ' + username)
+    logger.info('              email: ' + email)
+    logger.info('email_template_name: ' + email_template_name)
+    logger.info('       server_base : ' + server_base)
+    logger.info('        output_base: ' + output_base)
+    logger.info('          link_base: ' + link_base)
+    logger.info('              jobid: ' + jobid)
 
     matlab_base_params = '-nodesktop -nodisplay -nosplash -r ' + '\'cd ' + server_base + '/' + matlab_pgm_dir + ';' + matlab_pgm + \
                          formatparams(matlab_pgm_params)
-    logging.info('built params: ' + matlab_base_params) #this is incomplete, but need to get path working to test this
+    logger.info('built params: ' + matlab_base_params) #this is incomplete, but need to get path working to test this
     #execute matlab job in the background
     return jobid
