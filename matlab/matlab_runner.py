@@ -54,13 +54,13 @@ def matlab_runner(jobid, username, email, email_template_name,
                             '--jobid', jobid,
                             '--user', username,
                             '--email', email,
-                            '--emailtemplatename', email_template_name,
+                            '--emailtemplate', email_template_name,
                             '--pgmdir', matlab_pgm_dir,
                             '--pgm', matlab_pgm,
                             '--serverbase', server_base,
                             '--outputbase', output_base,
                             '--linkbase', link_base,
                             '--jobdatauri', job_data_uri,
-                            '--matlabparams', str(matlab_pgm_params)]).pid
+                            '--matlabparams']+matlab_pgm_params).pid
     return pid
 
