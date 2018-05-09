@@ -50,6 +50,17 @@ def matlab_runner(jobid, username, email, email_template_name,
     logger.info('   MATLAB pgm parms: ' + str(matlab_pgm_params))
 
     # execute matlab job in the background
-    pid = subprocess.Popen([ 'python', server_base + '/matlab/matlab_job.py', '--jobid',jobid, '--matlabparams', str(matlab_pgm_params)]).pid
+    pid = subprocess.Popen(['python', server_base + '/matlab/matlab_job.py',
+                            '--jobid', jobid,
+                            '--user', username,
+                            '--email', email,
+                            '--emailtemplatename', email_template_name,
+                            '--pgmdir', matlab_pgm_dir,
+                            '--pgm', matlab_pgm,
+                            '--serverbase', server_base,
+                            '--outputbase', output_base,
+                            '--linkbase', link_base,
+                            '--jobdatauri', job_data_uri,
+                            '--matlabparams', str(matlab_pgm_params)]).pid
     return pid
 
