@@ -30,7 +30,7 @@ def formatparams(parms) :
 def get_job_id():
     return 'matlab-'+str(uuid.uuid4())
 
-def matlab_runner(job_id, matlab_pgm_dir, matlab_pgm, matlab_pgm_params, username, email, email_template_name, server_base, output_base,link_base) :
+def matlab_runner(jobid, matlab_pgm_dir, matlab_pgm, matlab_pgm_params, username, email, email_template_name, server_base, output_base,link_base) :
     logger = logging.getLogger(__name__)
     # create jobid as matlab-UUID
 
@@ -49,4 +49,4 @@ def matlab_runner(job_id, matlab_pgm_dir, matlab_pgm, matlab_pgm_params, usernam
                          formatparams(matlab_pgm_params)
     logger.info('built params: ' + matlab_base_params) #this is incomplete, but need to get path working to test this
     #execute matlab job in the background
-    return job_id
+    return jobid
