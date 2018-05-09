@@ -69,7 +69,7 @@ def submit_image(request):
                 num_recon = request.POST['num_recon']
                 correlation_choice = request.POST['correlation_choice']
                 # Run MATLAB when file is valid
-                """bluedevil-oit - replaced
+                """ed151 - replaced
                 os.system(
                     'matlab -nodesktop -nodisplay -nosplash -r "cd '+work_dir+'/Two_pt_MCR/mfiles;run_2ptMCR(\'"' + str(
                         user_name) + '"\',"' + str(num_recon) + '","' + str(input_type) + '","' + str(
@@ -81,7 +81,7 @@ def submit_image(request):
                 """
 
                 job_data_uri = os.environ['NM_JOB_DATA_URI']
-                link_base = os.environ['NM_WEB_ADDR'] + job_data_uri
+                link_base = os.environ['NM_WEB_ADDR']
 
                 matlab_pgm_dir = '/Two_pt_MCR/mfiles'
                 matlab_pgm = 'run_2ptMCR'
@@ -92,9 +92,9 @@ def submit_image(request):
 
                 # NOTE: matlab_runner will format and send the email after the matlab program completes
                 matlab_runner(jobid, matlab_pgm_dir, matlab_pgm,
-                        matlab_params,
+                        matlab_params, #list should be in same order as expected by matlab program
                         user_name,
-                        user_email_id, email_template_name, server_base, output_base, link_base)
+                        user_email_id, email_template_name, server_base, output_base, link_base, job_data_uri)
 
 
                 form = DocumentForm()

@@ -17,25 +17,28 @@
 
 import os
 import uuid
-import matlab_job
 import logging
 
-def formatparams(parms) :
+
+def formatparams(parms):
     s = ""
     for p in parms:
         s += ("'" + p + "',")
     s = s.rstrip(',')
     return s
 
+
 def get_job_id():
-    return 'matlab-'+str(uuid.uuid4())
+    return 'matlab-' + str(uuid.uuid4())
 
-def matlab_runner(jobid, matlab_pgm_dir, matlab_pgm, matlab_pgm_params, username, email, email_template_name, server_base, output_base,link_base) :
+
+def matlab_runner(jobid, matlab_pgm_dir, matlab_pgm, matlab_pgm_params, username, email, email_template_name,
+                  server_base, output_base, link_base, job_data_uri):
     logger = logging.getLogger(__name__)
-    # create jobid as matlab-UUID
 
-    logger.info('        MATLAB proc: ' + matlab_pgm)
+    logger.info('              jobid: ' + jobid)
     logger.info('     MATLAB pgm dir: ' + matlab_pgm_dir)
+    logger.info('        MATLAB proc: ' + matlab_pgm)
     logger.info('   MATLAB pgm parms: ' + str(matlab_pgm_params))
     logger.info('           username: ' + username)
     logger.info('              email: ' + email)
@@ -43,10 +46,10 @@ def matlab_runner(jobid, matlab_pgm_dir, matlab_pgm, matlab_pgm_params, username
     logger.info('       server_base : ' + server_base)
     logger.info('        output_base: ' + output_base)
     logger.info('          link_base: ' + link_base)
-    logger.info('              jobid: ' + jobid)
+    logger.info('       job_data_uri: ' + job_data_uri)
 
     matlab_base_params = '-nodesktop -nodisplay -nosplash -r ' + '\'cd ' + server_base + '/' + matlab_pgm_dir + ';' + matlab_pgm + \
                          formatparams(matlab_pgm_params)
-    logger.info('built params: ' + matlab_base_params) #this is incomplete, but need to get path working to test this
-    #execute matlab job in the background
+    logger.info('built params: ' + matlab_base_params)  # this is incomplete, but need to get path working to test this
+    # execute matlab job in the background
     return jobid
