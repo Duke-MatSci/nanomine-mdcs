@@ -13,12 +13,13 @@
 #    --jobdatauri JOBDATAURI     - Job Data URI where JOBID directory will exist in web space
 #    --matlabparams MATLABPARAMS - Appropriately quoted strings to send as parameters to matlab program
 import logging
-import subprocess
+from subprocess import *
 import argparse
 import os
+import smtplib
+from email.message import Message
 
-
-email_server = os.environ['NM_EMAIL_HOST']
+email_host = os.environ['NM_EMAIL_HOST']
 email_port = os.environ['NM_EMAIL_PORT']
 
 parser = argparse.ArgumentParser(description='MATLAB job argument parser')
@@ -45,11 +46,22 @@ try:
 
     runstr = '\"cd ' + args.serverbase[0] + args.pgmdir[0] +';' + args.pgm[0] + '(' + mlparams + ');exit;\"'
     print('runstr: ' + runstr);
-    p = subprocess.Popen(["echo","-nodesktop","-nodisplay","-nosplash","-nojvm","-r",runstr],shell=True)
+    p = Popen(["echo","-nodesktop","-nodisplay","-nosplash","-nojvm","-r",runstr],shell=True)
     p.wait()
     with open( args.emailtemplate[0] ) as ftemplate:
         templatetext = ftemplate.read()
-    print(templatetext)
+    templatetext = templatetext.format(username=args.user[0],job_id=args.jobid[0],link_base=args.linkbase[0])
+    p = Popen(["mail","-s","NanoMine job " + args.jobid[0],"-r","noreply@nanomine.oit.duke.edu", args.email[0]],stdin=PIPE)
+    p.stdin.write(templatetext)
+    p.communicate()
+    p.wait()
+#    msg = Message()
+#    msg.set_payload(templatetext)
+#    msg['Subject'] = 'Nanomine job ' + args.jobid[0]
+#    msg['From'] = 'noreply@nanomine.oitduke.edu'
+#    msg['To'] = args.email[0]
+#    s = smtplib.SMTP(email_host)
+#    s.quit()    
 except BaseException as be:
     logging.error('Exception running matlab program: ' + str(be))
 
