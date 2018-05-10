@@ -15,22 +15,28 @@
 import logging
 import subprocess
 import argparse
-logger = logging.getLogger(__name__)
+import os
+
+
+email_server = os.environ['NM_EMAIL_HOST']
+email_port = os.environ['NM_EMAIL_PORT']
 
 parser = argparse.ArgumentParser(description='MATLAB job argument parser')
-parser.add_argument('--jobid',nargs=1)
-parser.add_argument('--pgmdir',nargs=1)
-parser.add_argument('--pgm',nargs=1)
-parser.add_argument('--user',nargs=1)
-parser.add_argument('--email',nargs=1)
-parser.add_argument('--emailtemplate',nargs=1)
-parser.add_argument('--serverbase',nargs=1)
-parser.add_argument('--outputbase',nargs=1)
-parser.add_argument('--linkbase',nargs=1)
-parser.add_argument('--jobdatauri',nargs=1)
-parser.add_argument('--matlabparams',nargs='*')
+parser.add_argument('--jobid', nargs=1)
+parser.add_argument('--pgmdir', nargs=1)
+parser.add_argument('--pgm', nargs=1)
+parser.add_argument('--user', nargs=1)
+parser.add_argument('--email', nargs=1)
+parser.add_argument('--emailtemplate', nargs=1)
+parser.add_argument('--serverbase', nargs=1)
+parser.add_argument('--outputbase', nargs=1)
+parser.add_argument('--linkbase', nargs=1)
+parser.add_argument('--jobdatauri', nargs=1)
+parser.add_argument('--matlabparams', nargs='*')
+
 args =  parser.parse_args()
-print('Args: ' + str(args));
+print('Args: ' + str(args))
+
 try:
     mlparams = ""
     for mlp in args.matlabparams:
