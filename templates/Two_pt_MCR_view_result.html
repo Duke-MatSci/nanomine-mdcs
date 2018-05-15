@@ -65,7 +65,7 @@ div.correlation {
     l = unescape(temp[1]);
     //alert(l); //Dialog with the text you put on the textbox
     var target = document.createElement("IMG");
-    target.setAttribute("src","http://129.105.90.149/nm/Two_pt_MCR/Reconstruction/"+l+"/Input1.jpg");
+    target.setAttribute("src","/static/JOB_DATA/Two_pt_MCR/Reconstruction/"+l+"/Input1.jpg");
     target.setAttribute("title","Target Microstructure");
     target.setAttribute("width", "300");
     target.setAttribute("height", "300");
@@ -87,7 +87,7 @@ div.correlation {
     var temp = parameters[0].split("=");
     l = unescape(temp[1]);
     var Reconstruct = document.createElement("IMG");
-    var image_name = "http://129.105.90.149/nm/Two_pt_MCR/Reconstruction/"+l+"/Reconstruction/Reconstruct1.jpg";
+    var image_name = "/static/JOB_DATA/Two_pt_MCR/Reconstruction/"+l+"/Reconstruction/Reconstruct1.jpg";
     Reconstruct.setAttribute("src",image_name);
     Reconstruct.setAttribute("width", "300");
     Reconstruct.setAttribute("height", "300");
@@ -95,7 +95,7 @@ div.correlation {
     Reconstruct.style.marginLeft = '125px';
     Reconstruct.style.marginTop = '-720px';
     document.body.append(Reconstruct);
-    var image_downld = "http://129.105.90.149/nm/Two_pt_MCR/Reconstruction/"+l+"/Results.zip";
+    var image_downld = "/static/JOB_DATA/Two_pt_MCR/Reconstruction/"+l+"/Results.zip";
     document.getElementById("myAnchor").setAttribute("href",image_downld);
   }
   Reconstruct();
@@ -112,7 +112,7 @@ div.correlation {
     var temp = parameters[0].split("=");
     l = unescape(temp[1]);
     var Correlation_image = document.createElement("IMG");
-    var image_name = "http://129.105.90.149/nm/Two_pt_MCR/Reconstruction/"+l+"/Reconstruction/Correlation Comparison.jpg";
+    var image_name = "/static/JOB_DATA/Two_pt_MCR/Reconstruction/"+l+"/Reconstruction/Correlation Comparison.jpg";
     Correlation_image.setAttribute("src",image_name);
     Correlation_image.setAttribute("width","450");
     Correlation_image.setAttribute("height","450");
