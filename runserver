@@ -4,5 +4,6 @@
 source ~nanomine/nanomine_prod_env
 source ~nanomine/nanomine/venv/bin/activate
 cd ~nanomine/nanomine
+kill $(ps -eo pid,args | grep 'python manage.py runserver'|grep -v grep | awk '{print $1}')
 python manage.py migrate
 nohup python manage.py runserver localhost:8000 --noreload &
