@@ -88,7 +88,7 @@ try:
     templatehtml = templatehtml.format(username=args.user[0], job_id=args.jobid[0], link_base=args.linkbase[0])
 
     send_email(subject='NanoMine job' + args.jobid[0], reply_to='noreply@nanomine.oit.duke.edu', send_to=args.email[0],
-               text_ver=templatetext, html_ver=templatehtml, email_host=email_host, email_port=email_port)
+               text_ver=templatetext, html_ver=templatehtml, host=email_host, port=email_port)
 
 except BaseException as be:
     logging.error('Exception running matlab program: ' + str(be))
