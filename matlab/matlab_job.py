@@ -71,10 +71,11 @@ try:
         mlparams += '\'' + mlp + '\','
     mlparams = mlparams.rstrip(',')
 
-    runstr = '\"cd ' + args.serverbase[0] + args.pgmdir[0] + ';' + args.pgm[0] + '(' + mlparams + ');exit;\"'
+    #runstr = '\"cd ' + args.serverbase[0] + args.pgmdir[0] + ';' + args.pgm[0] + '(' + mlparams + ');exit;\"'
+    runstr = 'cd ' + args.serverbase[0] + args.pgmdir[0] + ';' + args.pgm[0] + '(' + mlparams + ');exit;'
     logging.error('runstr: ' + runstr);
-    p = Popen(["echo", "-nodesktop", "-nodisplay", "-nosplash", "-nojvm", "-r", runstr],
-              shell=True)  # change echo to matlab and remove shell=True
+    p = Popen(["matlab", "-nodesktop", "-nodisplay", "-nosplash", "-r", runstr]
+              )  # cannot use -nojvm because of functions used
     p.wait()
     ttemplate = args.emailtemplate[0] + '.text'
     htemplate = args.emailtemplate[0] + '.html'

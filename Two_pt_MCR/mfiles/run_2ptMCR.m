@@ -48,7 +48,7 @@ fclose(fileID);
 
 stamp = [num2str(year),'/',str_month,'/',str_date,'/'];
 
-path_to_file = [input_base_dir,'Two_pt_MCR/media/documents/',stamp];
+path_to_file = [input_base_dir,'/Two_pt_MCR/media/documents/',stamp];
 
 % filename of the most recently uploaded
 fname = file_name; 
@@ -56,10 +56,15 @@ fname = file_name;
 path_to_write = [output_base_dir,'Two_pt_MCR/Reconstruction/',Job_ID]; %% write recon results here
 base_path_to_write=path_to_write
 mkdir(path_to_write);
+input_type = str2num(input_type)
+num_recon = str2num(num_recon)
+correlation_choice = str2num(correlation_choice)
+fprintf('input type: %d', input_type);
 
 %% Specify import function according to input option
 switch input_type
     case 1
+        fprintf('path: %s, fname: %s',path_to_file,fname);
         img = imread([path_to_file,fname]); % read the incoming target and store pixel values
         if max(img(:)) > 1
             img = round(img/256);
@@ -69,6 +74,7 @@ switch input_type
         legendInfo{1} = 'Target Image'; % Create legend for plots and variable names to save in .csv
         legendInfo_table{1} = 'Target_Image'; % Create variable names to save in .csv
     case 2 
+        fprintf('case 2 --path: %s, fname: %s',path_to_file,fname);
         img = unzip([path_to_file,fname],[base_path_to_write,'/input']);
         [target_corrf,L1,L2]=zip_file_processing_recon(path_to_write,correlation_choice);
         path_to_write = [base_path_to_write,'/Reconstruction'];
@@ -93,6 +99,7 @@ switch input_type
         Correlation_name = 'Surface_Correlation';
         end
     case 3
+        fprintf('case 3 --path: %s, fname: %s',path_to_file,fname);
         load([path_to_file,fname]);
         img = Input;
         img_viewable = 256 * img;
@@ -257,7 +264,7 @@ writetable(Correlation,[path_to_write,'/',Correlation_name,'.csv']);
 % save([path_to_write,'/2 Point Surface Correlation.mat'],'Surface2');
 
 %%
-delete_path = [input_base_dir, '/Two_pt_MCR/media/documents/',stamp]
+delete_path = [input_base_dir, '/Two_pt_MCR/media/documents/',stamp];
 delete delete_path;
 
 %% ZIP files %%
