@@ -48,7 +48,7 @@ fclose(fileID);
 
 stamp = [num2str(year),'/',str_month,'/',str_date,'/'];
 
-path_to_file = ['../media/documents/',stamp]; 
+path_to_file = [input_base_dir,'Two_pt_MCR/media/documents/',stamp];
 
 % filename of the most recently uploaded
 fname = file_name; 
@@ -60,7 +60,7 @@ mkdir(path_to_write);
 %% Specify import function according to input option
 switch input_type
     case 1
-        img = imread([path_to_file,fname]); % read the incming target and store pixel values
+        img = imread([path_to_file,fname]); % read the incoming target and store pixel values
         if max(img(:)) > 1
             img = round(img/256);
         end
