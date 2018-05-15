@@ -21,9 +21,13 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+email_host = os.environ['NM_EMAIL_HOST']
+email_port = os.environ['NM_EMAIL_PORT']
 
-def send_email(**kwargs):
-    #ref: https://docs.python.org/2/library/email-examples.html
+
+def send_email(subject=None, reply_to='noreply@nanomine.oit.duke.edu', send_to=None,
+               text_ver=None, html_ver=None, host=email_host, port=email_port):
+    # ref: https://docs.python.org/2/library/email-examples.html
 
     msg = MIMEMultipart('alternative')
     msg['Subject'] = subject
@@ -39,13 +43,11 @@ def send_email(**kwargs):
     msg.attach(part1)
     msg.attach(part2)
 
-    s = smtplib.SMTP(email_host, email_port)
+    s = smtplib.SMTP(host, port)
     s.sendmail(reply_to, send_to, msg.as_string())
     s.quit()
 
 
-email_host = os.environ['NM_EMAIL_HOST']
-email_port = os.environ['NM_EMAIL_PORT']
 
 parser = argparse.ArgumentParser(description='MATLAB job argument parser')
 parser.add_argument('--jobid', nargs=1)
@@ -85,8 +87,8 @@ try:
         templatehtml = ftemplate.read()
     templatehtml = templatehtml.format(username=args.user[0], job_id=args.jobid[0], link_base=args.linkbase[0])
 
-    send_email(subject='NanoMine job' + args.jobid[0], replyto='noreply@nanomine.oit.duke.edu', sendto=args.email[0],
-               textver=templatetext, htmlver=templatehtml, email_host=email_host, email_port=email_port)
+    send_email(subject='NanoMine job' + args.jobid[0], reply_to='noreply@nanomine.oit.duke.edu', send_to=args.email[0],
+               text_ver=templatetext, html_ver=templatehtml, email_host=email_host, email_port=email_port)
 
 except BaseException as be:
     logging.error('Exception running matlab program: ' + str(be))
