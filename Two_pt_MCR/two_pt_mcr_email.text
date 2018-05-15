@@ -1,0 +1,14 @@
+To: {username}
+Subject: Reconstruction complete for Job ID: {job_id}
+Content-Type:text/plain; charset="us-ascii"
+
+Greeting from NanoMine!
+
+You are receiving this email because you had submitted an image for reconstruction using 2 point correlation.
+    The reconstruction process is complete and you can view the results
+    here: {link_base}/Two_pt_MCR_view_result.html?foo={job_id}&submit=Send
+
+Best Wishes,
+NanoMine Team.
+
+***DO NOT REPLY TO THIS EMAIL***

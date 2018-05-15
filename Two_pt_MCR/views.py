@@ -85,7 +85,11 @@ def submit_image(request):
 
                 matlab_pgm_dir = '/Two_pt_MCR/mfiles'
                 matlab_pgm = 'run_2ptMCR'
-                email_template_name = str(server_base)+'/Two_pt_MCR/two_pt_mcr_email.html'
+                # NOTE: There needs to be a .text and a .html version of the email_template_name
+                #      since it's a base filename for two files
+                #      The user can turn off HTML emails in their
+                #      email client in which case, they'll see the text version
+                email_template_name = str(server_base)+'/Two_pt_MCR/two_pt_mcr_email'
                 jobid = get_job_id()
                 matlab_params = [str(user_name), str(num_recon), str(input_type), str(correlation_choice),
                                        str(file), str(output_base), str(server_base), str(jobid)]
