@@ -52,8 +52,10 @@ path_to_file = ['../media/documents/',stamp];
 
 % filename of the most recently uploaded
 fname = file_name; 
-path_to_write = ['/var/www/html/nm/Two_pt_MCR/Reconstruction/',Job_ID]; %% write recon results here 
-mkdir(path_to_write); 
+%ED151 path_to_write = ['/var/www/html/nm/Two_pt_MCR/Reconstruction/',Job_ID]; %% write recon results here
+path_to_write = [output_base_dir,'Two_pt_MCR/Reconstruction/',Job_ID]; %% write recon results here
+base_path_to_write=path_to_write
+mkdir(path_to_write);
 
 %% Specify import function according to input option
 switch input_type
@@ -63,13 +65,13 @@ switch input_type
             img = round(img/256);
         end
         imwrite(256*img,[path_to_write,'/','Input1.jpg']);
-        path_to_write = ['/var/www/html/nm/Two_pt_MCR/Reconstruction/',Job_ID,'/Reconstruction'];
+        path_to_write = [base_path_to_write,'/Reconstruction'];
         legendInfo{1} = 'Target Image'; % Create legend for plots and variable names to save in .csv
         legendInfo_table{1} = 'Target_Image'; % Create variable names to save in .csv
     case 2 
-        img = unzip([path_to_file,fname],[path_to_write,'/input']);
+        img = unzip([path_to_file,fname],[base_path_to_write,'/input']);
         [target_corrf,L1,L2]=zip_file_processing_recon(path_to_write,correlation_choice);
-        path_to_write = ['/var/www/html/nm/Two_pt_MCR/Reconstruction/',Job_ID,'/Reconstruction'];
+        path_to_write = [base_path_to_write,'/Reconstruction'];
         legendInfo{1} = 'Mean Of Inputs'; % Create legend for plots and variable names to save in .csv
         legendInfo_table{1} = 'Mean_Of_Inputs'; % Create variable names to save in .csv
         switch correlation_choice
@@ -94,8 +96,8 @@ switch input_type
         load([path_to_file,fname]);
         img = Input;
         img_viewable = 256 * img;
-        imwrite(img_viewable,[path_to_write,'/','Input1.jpg']);
-        path_to_write = ['/var/www/html/nm/Two_pt_MCR/Reconstruction/',Job_ID,'/Reconstruction'];
+        imwrite(img_viewable,[base_path_to_write,'/','Input1.jpg']);
+        path_to_write = [base_path_to_write,'/Reconstruction'];
         legendInfo{1} = 'Target Image'; % Create legend for plots and variable names to save in .csv
         legendInfo_table{1} = 'Target_Image'; % Create variable names to save in .csv
 end
@@ -175,7 +177,7 @@ end
 %%Plotting%%
 figure('color',[1,1,1])
 hold on;
-plot( 0:1:length(target_corrf)-1, target_corrf , 'LineWidth',2.5);
+plot( 0:1:length(target_corrf)-1, target_corrf, 'LineWidth', 2.5);
 %Create legend names
 for i = 1 : num_recon
 	plot( 0:1:length(target_corrf)-1, recon_corrf(:,i), 'LineWidth',2.5);
@@ -255,11 +257,12 @@ writetable(Correlation,[path_to_write,'/',Correlation_name,'.csv']);
 % save([path_to_write,'/2 Point Surface Correlation.mat'],'Surface2');
 
 %%
-delete_path = ['/home/NANOMINE/Production/mdcs/Two_pt_MCR/media/documents/',stamp]
+delete_path = [input_base_dir, '/Two_pt_MCR/media/documents/',stamp]
 delete delete_path;
 
 %% ZIP files %%
-path_to_zip = ['/var/www/html/nm/Two_pt_MCR/Reconstruction/',Job_ID];
+% ED151 path_to_zip = ['/var/www/html/nm/Two_pt_MCR/Reconstruction/',Job_ID];
+path_to_zip = base_path_to_write;
 zip([path_to_zip,'/Results.zip'],{'*'},path_to_zip);
 %% Email to user%%
 To = ['To:',user_name];
@@ -276,18 +279,18 @@ Footer1 = '<p>***DO NOT REPLY TO THIS EMAIL***</p>';
 html_footer = '</body></html>';
 Body = [Body2,Body3];
 
-fileID = fopen('/home/NANOMINE/Production/mdcs/Two_pt_MCR/email.html','wt+');
-fprintf(fileID,'%s\n',To);
-fprintf(fileID,'%s\n',Subject);
-fprintf(fileID,'%s\n',Content);
-fprintf(fileID,'%s\n',html_headers);
+% ED151 fileID = fopen('/home/NANOMINE/Production/mdcs/Two_pt_MCR/email.html','wt+');
+% ED151 fprintf(fileID,'%s\n',To);
+% ED151 fprintf(fileID,'%s\n',Subject);
+% ED151 fprintf(fileID,'%s\n',Content);
+% ED151 fprintf(fileID,'%s\n',html_headers);
 %fprintf(fileID,'%s\n',NM_logo);
-fprintf(fileID,'\n%s\n',Body1);
-fprintf(fileID,'\n%s\n',Body);
-fprintf(fileID,'\n%s\n',Body4);
-fprintf(fileID,'%s\n',Body5);
-fprintf(fileID,'\n%s\n',Footer1);
-fprintf(fileID,'%s\n',html_footer);
-fclose(fileID);
+% ED151 fprintf(fileID,'\n%s\n',Body1);
+% ED151 fprintf(fileID,'\n%s\n',Body);
+% ED151 fprintf(fileID,'\n%s\n',Body4);
+% ED151 fprintf(fileID,'%s\n',Body5);
+% ED151 fprintf(fileID,'\n%s\n',Footer1);
+% ED151 fprintf(fileID,'%s\n',html_footer);
+% ED151 fclose(fileID);
 
 end
