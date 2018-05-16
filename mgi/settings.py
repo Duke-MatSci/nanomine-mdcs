@@ -28,6 +28,7 @@ VERSION = "1.3"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+job_data_uri = os.environ['NM_JOB_DATA_URI']
 matlab = os.environ['NM_SERVER_DIR']+'/matlab'
 sys.path.insert(0, matlab) 
 print('added ' + matlab + ' to python path')
