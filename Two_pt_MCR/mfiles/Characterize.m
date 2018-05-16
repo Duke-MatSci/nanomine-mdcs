@@ -1,4 +1,4 @@
-function Characterize(user_name,input_type,correlation_type,file_name)
+function Characterize(user_name, input_type, correlation_type, file_name, output_base_dir, input_base_dir, Job_ID)
 
 %%% Input Types %%
 % 1 : Single JPEG Image
@@ -18,7 +18,7 @@ year = c(1); month = c(2); date = c(3);hour=c(4); minute=c(5); seconds=c(6); % d
 c(1) = c(1) + 7;
 c(2) = c(2) + 13;
 c(3) = c(3) + 17;
-Job_ID = [num2str(c(2)),num2str(c(3)),num2str(c(4)),fliplr(num2str(c(1))),num2str(c(5)),num2str(c(6))];
+%ED151 - Job_ID = [num2str(c(2)),num2str(c(3)),num2str(c(4)),fliplr(num2str(c(1))),num2str(c(5)),num2str(c(6))];
 %%%
 
 time_stamp = ['H',num2str(hour),'/','M',num2str(minute)]; % create a time stamp to store files
@@ -44,20 +44,23 @@ fclose(fileID);
 
 stamp = [num2str(year),'/',str_month,'/',str_date,'/'];
 
-path_to_file = ['../media/documents/',stamp]; 
+path_to_file = [input_base_dir,'/Two_pt_MCR/media/documents/',stamp];
 
 fname = file_name; % incoming file name
-path_to_write = ['/var/www/html/nm/Two_pt_MCR/Characterization/',Job_ID];
+path_to_write = [output_base_dir,'/Two_pt_MCR/Characterization/',Job_ID];
+base_path_to_write=path_to_write
 mkdir(path_to_write);
+input_type = str2num(input_type)
+correlation_type = str2num(correlation_type)
 
 %% Specify import function according to input option
 switch input_type
     case 1
         img = imread([path_to_file,fname]); % read the incming target and store pixel values
-	if max(img(:)) > 1
-		img = round(img/256);
-	end
-	imwrite(256*img,[path_to_write,'/','Input1.jpg']);
+      	if max(img(:)) > 1
+          img = round(img/256);
+	      end
+	      imwrite(256*img,[path_to_write,'/','Input1.jpg']);
     case 2 
         img = unzip([path_to_file,fname],[path_to_write,'/input']);
     case 3
@@ -102,17 +105,17 @@ Footer1 = '<p>***DO NOT REPLY TO THIS EMAIL***</p>';
 html_footer = '</body></html>';
 Body = [Body2,Body3];
 
-fileID = fopen('/home/NANOMINE/Production/mdcs/Two_pt_MCR/email.html','wt+');
-fprintf(fileID,'%s\n',To);
-fprintf(fileID,'%s\n',Subject);
-fprintf(fileID,'%s\n',Content);
-fprintf(fileID,'%s\n',html_headers);
+% ED151 - fileID = fopen('/home/NANOMINE/Production/mdcs/Two_pt_MCR/email.html','wt+');
+% ED151 - fprintf(fileID,'%s\n',To);
+% ED151 - fprintf(fileID,'%s\n',Subject);
+% ED151 - fprintf(fileID,'%s\n',Content);
+% ED151 - fprintf(fileID,'%s\n',html_headers);
 %fprintf(fileID,'%s\n',NM_logo);
-fprintf(fileID,'\n%s\n',Body1);
-fprintf(fileID,'\n%s\n',Body);
-fprintf(fileID,'\n%s\n',Body4);
-fprintf(fileID,'%s\n',Body5);
-fprintf(fileID,'\n%s\n',Footer1);
-fprintf(fileID,'%s\n',html_footer);
-fclose(fileID);
+% ED151 - fprintf(fileID,'\n%s\n',Body1);
+% ED151 - fprintf(fileID,'\n%s\n',Body);
+% ED151 - fprintf(fileID,'\n%s\n',Body4);
+% ED151 - fprintf(fileID,'%s\n',Body5);
+% ED151 - fprintf(fileID,'\n%s\n',Footer1);
+% ED151 - fprintf(fileID,'%s\n',html_footer);
+% ED151 - fclose(fileID);
 end

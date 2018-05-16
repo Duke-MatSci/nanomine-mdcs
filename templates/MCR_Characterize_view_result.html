@@ -55,7 +55,7 @@ div.correlation {
     l = unescape(temp[1]);
     //alert(l); //Dialog with the text you put on the textbox
     var target = document.createElement("IMG");
-    target.setAttribute("src","http://129.105.90.149/nm/Two_pt_MCR/Characterization/"+l+"/Input1.jpg");
+    target.setAttribute("src","/static/JOB_DATA/Two_pt_MCR/Characterization/"+l+"/Input1.jpg");
     target.setAttribute("title","Input Microstructure");
     target.setAttribute("width", "350");
     target.setAttribute("height", "350");
@@ -78,7 +78,7 @@ div.correlation {
     var temp = parameters[0].split("=");
     l = unescape(temp[1]);
     var Reconstruct = document.createElement("IMG");
-    var image_name = "http://129.105.90.149/nm/Two_pt_MCR/Characterization/"+l+"/Correlation.jpg";
+    var image_name = "/static/JOB_DATA/Two_pt_MCR/Characterization/"+l+"/Correlation.jpg";
     Reconstruct.setAttribute("src",image_name);
     Reconstruct.setAttribute("width", "500");
     Reconstruct.setAttribute("height", "500");
@@ -86,7 +86,7 @@ div.correlation {
     Reconstruct.style.left = '700px';
     Reconstruct.style.marginTop = '-740px';
     document.body.append(Reconstruct);
-    var image_downld = "http://129.105.90.149/nm/Two_pt_MCR/Characterization/"+l+"/Results.zip";
+    var image_downld = "/static/JOB_DATA/Two_pt_MCR/Characterization/"+l+"/Results.zip";
     document.getElementById("myAnchor").setAttribute("href",image_downld);
     //var title = document.createTextNode("Correlation");
     //document.body.appendChild(title);

@@ -16,7 +16,7 @@ import xmltodict
 import os
 import subprocess
 import scipy.io
-
+import re
 
 # Create your views here.
 
@@ -43,15 +43,15 @@ def submit_image(request):
                 server_base = os.environ['NM_SERVER_DIR']
                 output_base = os.environ['NM_JOB_DATA']
                 work_dir = server_base
-                #os.chdir(work_dir)
-                #os.system('pwd')
+                # os.chdir(work_dir)
+                # os.system('pwd')
                 user_email_id = request.POST['email_id']
                 if not user_email_id:
                     return HttpResponse(
                         '<h3>Please provide an email address to receive Job ID!</h3>')  # if no email id was provided, report error
                 input_type = request.POST['Characterize_input_type']
                 if input_type == "1":
-                    #p=re.compile('.*(\\.([Jj][Pp][Gg])|([Tt][Ii][Ff])|([Pp][Nn][Gg]))$'); p.match(str(file))
+                    # p=re.compile('.*(\\.([Jj][Pp][Gg])|([Tt][Ii][Ff])|([Pp][Nn][Gg]))$'); p.match(str(file))
                     if not str(file).lower().endswith(".jpg"):
                         if not str(file).lower().endswith(".tif"):
                             if not str(file).lower().endswith(".png"):
@@ -89,23 +89,23 @@ def submit_image(request):
                 #      since it's a base filename for two files
                 #      The user can turn off HTML emails in their
                 #      email client in which case, they'll see the text version
-                email_template_name = str(server_base)+'/Two_pt_MCR/two_pt_mcr_email'
+                email_template_name = str(server_base) + '/Two_pt_MCR/two_pt_mcr_email'
                 jobid = get_job_id()
                 matlab_params = [str(user_name), str(num_recon), str(input_type), str(correlation_choice),
-                                       str(file), str(output_base), str(server_base), str(jobid)]
+                                 str(file), str(output_base), str(server_base), str(jobid)]
 
                 # NOTE: matlab_runner will format and send the email after the matlab program completes
                 matlab_runner(jobid,
-                        user_name,
-                        user_email_id, email_template_name, server_base, output_base, link_base,
-                        job_data_uri,matlab_pgm_dir, matlab_pgm,
-                        matlab_params, #list should be in same order as expected by matlab program
-                        )
-
+                              user_name,
+                              user_email_id, email_template_name, server_base, output_base, link_base,
+                              job_data_uri, matlab_pgm_dir, matlab_pgm,
+                              matlab_params,  # matlab_params list should be in same order as expected by matlab program
+                              )
 
                 form = DocumentForm()
                 documents = Document.objects.all()
-                return render_to_response('Two_pt_MCR_submission_notify.html', {'jobid': jobid,'documents': documents, 'form': form},
+                return render_to_response('Two_pt_MCR_submission_notify.html',
+                                          {'jobid': jobid, 'documents': documents, 'form': form},
                                           context_instance=RequestContext(request))
             else:
                 form = DocumentForm()
@@ -210,19 +210,21 @@ def Characterize(request):
                     return HttpResponse('<h3>Please provide an email address to receive Job ID!</h3>')
                 work_dir = os.environ['NM_HOME']
                 os.chdir(work_dir)
-#                os.system('pwd')
+                #                os.system('pwd')
                 file = request.FILES['docfile']  # get name of incoming file
                 print type(str(file))
                 input_type = request.POST['Characterize_input_type']
                 if input_type == "1":
-                    if not str(file).endswith(".jpg"):
-                        if not str(file).endswith(".JPG"):
-                            if not str(file).endswith(".tif"):
-                                if not str(file).endswith(".png"):
-                                    if not str(file).endswith(".PNG"):
-                                        if not str(file).endswith(".TIF"):
-                                            return HttpResponse(
-                                                '<h3>Please upload a file in supported format (.jpg, .tif, .png)</h3>')  # report wrong file format
+                    p = re.compile(r'.*(\.([Jj][Pp][Gg])|([Tt][Ii][Ff])|([Pp][Nn][Gg]))$');
+                    # if not str(file).endswith(".jpg"):
+                    #    if not str(file).endswith(".JPG"):
+                    #        if not str(file).endswith(".tif"):
+                    ##            if not str(file).endswith(".png"):
+                    #                if not str(file).endswith(".PNG"):
+                    #                    if not str(file).endswith(".TIF"):
+                    if not p.match(str(file)):
+                        return HttpResponse(
+                            '<h3>Please upload a file in supported format (.jpg, .tif, .png)</h3>')  # report wrong file format
                 elif input_type == "2":
                     if not str(file).endswith(".zip"):
                         return HttpResponse(
@@ -236,13 +238,39 @@ def Characterize(request):
                 user_name = request.user.get_username()
                 print (user_name)
                 # Run MATLAB when file is valid
-                os.system(
-                    'matlab -nodesktop -nodisplay -nosplash -r "cd '+work_dir+'/Two_pt_MCR/mfiles;Characterize(\'"' + user_name + '"\',"' + str(
+                """os.system(
+                    'matlab -nodesktop -nodisplay -nosplash -r "cd ' + work_dir + '/Two_pt_MCR/mfiles;Characterize(\'"' + user_name + '"\',"' + str(
                         input_type) + '","' + str(correlation_choice) + '",\'"' + str(file) + '"\');exit"')
 
-                mail_to_user = 'echo sendmail ' + user_email_id + ' < '+work_dir+'/Two_pt_MCR/email.html'
-                os.system(mail_to_user)
-                #os.system('sendmail back2akshay@gmail.com < /home/NANOMINE/Production/mdcs/Two_pt_MCR/email.html')
+                mail_to_user = 'echo sendmail ' + user_email_id + ' < ' + work_dir + '/Two_pt_MCR/email.html'
+                os.system(mail_to_user)"""
+                # os.system('sendmail back2akshay@gmail.com < /home/NANOMINE/Production/mdcs/Two_pt_MCR/email.html')
+
+                server_base = os.environ['NM_SERVER_DIR']
+                output_base = os.environ['NM_JOB_DATA']
+                work_dir = server_base
+                job_data_uri = os.environ['NM_JOB_DATA_URI']
+                link_base = os.environ['NM_WEB_ADDR']
+
+                matlab_pgm_dir = '/Two_pt_MCR/mfiles'
+                matlab_pgm = 'Characterize'
+                # NOTE: There needs to be a .text and a .html version of the email_template_name
+                #      since it's a base filename for two files
+                #      The user can turn off HTML emails in their
+                #      email client in which case, they'll see the text version
+                email_template_name = str(server_base) + '/Two_pt_MCR/two_pt_characterize_email'
+                jobid = get_job_id()
+                matlab_params = [str(user_name), str(input_type), str(correlation_choice),
+                                 str(file), str(output_base), str(server_base), str(jobid)]
+
+                # NOTE: matlab_runner will format and send the email after the matlab program completes
+                matlab_runner(jobid,
+                              user_name,
+                              user_email_id, email_template_name, server_base, output_base, link_base,
+                              job_data_uri, matlab_pgm_dir, matlab_pgm,
+                              matlab_params,  # matlab_params list should be in same order as expected by matlab program
+                              )
+
                 form = DocumentForm()
                 documents = Document.objects.all()
                 return render_to_response("MCR_Characterize_Check_Result.html", {'documents': documents, 'form': form},

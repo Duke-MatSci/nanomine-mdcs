@@ -22,6 +22,7 @@ data/
 
 **/Activity_log.txt
 
+
 AUTOFIT/*.str
 # AUTOFIT/*.num
 AUTOFIT/src_code/cropped_images
@@ -98,3 +99,4 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+

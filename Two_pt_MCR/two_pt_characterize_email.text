@@ -1,0 +1,17 @@
+
+Greetings from NanoMine!
+
+Hello {username},
+
+Characterization complete for Job ID: {job_id}
+
+
+You are receiving this email because you had submitted an image for characterization using 2 point correlation.
+    The characterization process is complete and you can view the results here:
+    {link_base}/MCR_Characterize_view_result.html?foo={job_id}&submit=Send
+
+
+Best Wishes,
+NanoMine Team.
+
+***DO NOT REPLY TO THIS EMAIL***
