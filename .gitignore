@@ -20,7 +20,7 @@ data/
 
 # config and temp files for apps
 
-**/mfiles/Activity_log.txt
+**/Activity_log.txt
 
 AUTOFIT/*.str
 # AUTOFIT/*.num
