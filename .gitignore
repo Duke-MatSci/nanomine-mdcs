@@ -9,6 +9,9 @@ nanomine.tgz
 venv/
 nohup.out
 
+**/get-pip.py
+**/docker.key
+
 */*.pyc
 *pyc
 

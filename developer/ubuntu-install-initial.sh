@@ -40,61 +40,50 @@ echo "  "
 echo "  ** This process uses 'sudo' so your password"
 echo "      may be required to complete some commands."
 echo "  "
-echo "  The steps of the first phase will:"
-echo " "
 
-cmds[1]="echo sudo useradd nanomine"
-text[1]="    Create a nanomine user"
-
-cmds[2]="echo sudo passwd nanomine"
-text[2]="    Prompt for the new nanomine user\'s password twice.\n        Type something that can be remembered!!!\n        If the password is forgotten later user 'sudo passwd nanomine' to update it."
-
-cmds[3]="echo sudo usermod -a -G nanomine $USER"
-text[3]="    Add the current user $USER to the nanomine group for convenience"
-
-cmds[4]="$(installpython)"
-text[4]="    Install python2 if necessary"
-
-cmds[5]="$(installcurl)"
-text[5]="    Install curl downloader"
-
-cmds[6]="$(installpip)"
-text[6]="    Install python package installer 'pip' if necessary"
-
-cmds[7]="$(installvirtualenv)"
-text[7]="    Install python environment virtualizer 'virtualenv' if necessary"
-
-cmds[8]="$(installgit)"
-text[8]="    Install git if necessary"
-
-cmds[9]="$(installdocker)"
-text[9]="    Install docker if necessary"
-
-cmds[10]="$(installmongo)"
-text[10]="    Install mongo if necessary"
-
-cmds[11]="sudo usermod -a -G $USER docker"
-text[11]="   Add current user $USER to docker group"
-
-cmds[12]="sudo usermod -a -G nanomine docker"
-text[12]="   Add the nanomine user to the docker group"
-
-cmds[13]="$(installvim)"
-text[13]="   Install the vim editor"
-
-for i in "${!text[@]}"; do
-  stdbuf -o0 printf "${text[i]}\n"
-  echo " "
-done
-
-echo "press enter after reading the notes above"
+echo "The install will now run when you press enter. Use Ctrl+C to terminate"
 read
 
-echo "The install will run when you press enter. Use Ctrl+C to terminate"
-read
+echo "    Create a nanomine user"
+sudo useradd nanomine
 
-for i in "${!text[@]}"; do
-  stdbuf -o0 printf "${text[i]}\n" | tee -a nanomine_install.log
-  eval("${cmd[i]}")
-done
+echo "    Prompt for the new nanomine user\'s password twice.\n        Type something that can be remembered!!!\n        If the password is forgotten later user 'sudo passwd nanomine' to update it."
+sudo passwd nanomine
+
+echo "    Add the current user $USER to the nanomine group for convenience"
+sudo usermod -a -G nanomine $USER
+
+echo "    Install python2 if necessary"
+$(installpython)
+
+echo "    Install curl downloader"
+$(installcurl)
+
+echo "    Install python package installer 'pip' if necessary"
+$(installpip)
+
+echo "    Install python environment virtualizer 'virtualenv' if necessary"
+$(installvirtualenv)
+
+echo "    Install git if necessary"
+$(installgit)
+
+echo "    Install docker if necessary"
+$(installdocker)
+
+echo "    Install mongo if necessary"
+$(installmongo)
+
+echo "   Add current user $USER to docker group"
+sudo usermod -a -G $USER docker
+
+echo "   Add the nanomine user to the docker group"
+sudo usermod -a -G nanomine docker
+
+echo "   Install the vim editor"
+$(installvim)
+
+echo all done with phase 1
+
+
 
