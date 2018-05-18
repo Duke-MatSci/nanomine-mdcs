@@ -2,6 +2,6 @@ function installpython() {
     if [[ -x python ]] ; then
         echo 'python already installed'
     else 
-        sudo apt install oython
+        sudo apt install python
     fi
 }
