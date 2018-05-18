@@ -2,6 +2,6 @@ function installgit() {
     if [[ -x git ]] ; then 
         echo 'git already installed' 
     else 
-        sudo apt install git
+        sudo apt-get install git
     fi
 }
