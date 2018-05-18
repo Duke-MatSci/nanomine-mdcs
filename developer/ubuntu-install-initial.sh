@@ -82,7 +82,7 @@ cmds[13]="$(installvim)"
 text[13]="   Install the vim editor"
 
 for i in "${!text[@]}"; do
-  printf "${text[i]}\n"
+  stdbuf -o0 printf "${text[i]}\n"
   echo " "
 done
 
@@ -93,7 +93,7 @@ echo "The install will run when you press enter. Use Ctrl+C to terminate"
 read
 
 for i in "${!text[@]}"; do
-  printf "${text[i]}\n" | tee -a nanomine_install.log
+  stdbuf -o0 printf "${text[i]}\n" | tee -a nanomine_install.log
   eval("$(cmd[i]}")
 done
 
