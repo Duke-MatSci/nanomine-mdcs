@@ -1,6 +1,6 @@
 #!/bin/bash
 source ./ubuntu/checkosversion
-source ./installpython
+source ./ubunt/installpython
 source ./ubuntu/installcurl
 source ./ubuntu/installdocker
 source ./ubuntu/installmongo

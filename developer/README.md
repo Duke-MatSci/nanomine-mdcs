@@ -18,7 +18,7 @@ In a terminal window, clone the repository for installation only.
 
 * cd developer
 
-* sh ./ubuntu-install-initial.sh # to start the installer
+* bash ./ubuntu-install-initial.sh # to start the installer
 
 Only the first phase is available so far....
 
