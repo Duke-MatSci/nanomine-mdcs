@@ -2,6 +2,6 @@ function installcurl() {
     if [[ -x curl ]] ; then 
         echo 'curl already installed' 
     else 
-        sudo apt install curl 
+        sudo apt-get install curl
     fi
 }
