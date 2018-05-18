@@ -1,7 +1,7 @@
 function checkosversion() {
   OS=$(lsb_release -i | awk '{print $3}')
   V=$(lsb_release -r | awk '{print $2}')
-  if [ $OS == "Ubuntu" -a $V == "18.06" ] ; then
+  if [ $OS == "Ubuntu" -a $V == "18.04" ] ; then
     echo "yes"
   else
     echo "no"
