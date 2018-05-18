@@ -16,7 +16,7 @@ if [[ $osisok != "yes" ]]; then
   exit
 fi
 
-echo" "
+echo " "
 echo "NanoMine Ubuntu Developer Install"
 echo "---------------------------------"
 echo "It may help to increase the size of the terminal"
