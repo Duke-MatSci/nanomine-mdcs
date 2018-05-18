@@ -2,6 +2,6 @@ function installvim() {
     if [[ -x vim ]] ; then
         echo 'vim already installed'
     else 
-        sudo apt-get  install vim
+        sudo apt-get -y install vim
     fi
 }

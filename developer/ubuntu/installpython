@@ -2,6 +2,6 @@ function installpython() {
     if [[ -x python ]] ; then
         echo 'python already installed'
     else 
-        sudo apt-get install python
+        sudo apt-get -y install python
     fi
 }
