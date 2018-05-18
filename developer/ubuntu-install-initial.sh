@@ -5,6 +5,7 @@ source ./ubuntu/installcurl
 source ./ubuntu/installdocker
 source ./ubuntu/installmongo
 source ./ubuntu/installpip
+source ./ubuntu/installvirtualenv
 source ./ubuntu/installgit
 source ./ubuntu/installvim
 
