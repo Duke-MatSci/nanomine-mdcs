@@ -1,0 +1,8 @@
+function installvirtualenv() {
+    which virtualenv; rv=$?;
+    if (( $rv==0 )); then 
+        echo 'virtualenv already installed' 
+    else 
+        sudo pip install virtualenv
+    fi
+}

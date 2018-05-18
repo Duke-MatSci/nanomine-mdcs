@@ -1,0 +1,9 @@
+function installpip() {
+    which pip; rv=$?;
+    if (( $rv==0 )); then 
+        echo 'pip already installed' 
+    else 
+        wget -O get-pip.py https://bootstrap.pypa.io/get-pip.py
+        sudo python get-pip.py        
+    fi
+}
