@@ -94,6 +94,6 @@ read
 
 for i in "${!text[@]}"; do
   printf "${text[i]}\n" | tee -a nanomine_install.log
-  eval("$(cmd[i[}")
+  eval("$(cmd[i]}")
 done
 
