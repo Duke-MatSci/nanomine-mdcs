@@ -68,10 +68,10 @@ echo "    Install mongo if necessary"
 $(installmongo)
 
 echo "   Add current user $USER to docker group"
-sudo usermod -a -G $USER docker
+sudo usermod -a -G docker $USER
 
 echo "   Add the nanomine user to the docker group"
-sudo usermod -a -G nanomine docker
+sudo usermod -a -G docker nanomine
 
 echo "   Install the vim editor"
 $(installvim)
