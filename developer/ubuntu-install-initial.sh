@@ -1,21 +1,11 @@
 #!/bin/bash
 source ./ubuntu/checkosversion
-source ./ubuntu/installpython
-source ./ubuntu/installcurl
 source ./ubuntu/installdocker
 source ./ubuntu/installmongo
 source ./ubuntu/installpip
 source ./ubuntu/installvirtualenv
-source ./ubuntu/installgit
-source ./ubuntu/installvim
 
 
-osisok=$(checkosversion)
-if [[ $osisok != "yes" ]]; then
-  echo "Please use ubuntu 18.04"
-  echo "Sorry. Cannot continue NanoMine installation."
-  exit
-fi
 
 echo " "
 echo "NanoMine Ubuntu Developer Install"
@@ -43,30 +33,33 @@ echo "  "
 
 echo "The install will now run when you press enter. Use Ctrl+C to terminate"
 read
+sudo apt-get update; sudo apt-get -y install python git curl vim
+
+osisok=$(checkosversion)
+if [[ $osisok != "yes" ]]; then
+  echo "Please use ubuntu 18.04"
+  echo "Sorry. Cannot continue NanoMine installation."
+  exit
+fi
+
 
 echo "    Create a nanomine user"
 sudo useradd -g nanomine -d /home/nanomine -m nanomine
 
-echo "    Prompt for the new nanomine user\'s password twice.\n        Type something that can be remembered!!!\n        If the password is forgotten later user 'sudo passwd nanomine' to update it."
+echo "    Setting the password for the nanomine user."
+echo "    The program will prompt for the new nanomine user\'s password twice."
+echo "    Type something that can be remembered!!!"
+echo "        If the password is forgotten later user 'sudo passwd nanomine' to update it."
 sudo passwd nanomine
 
 echo "    Add the current user $USER to the nanomine group for convenience"
 sudo usermod -a -G nanomine $USER
-
-echo "    Install python2 if necessary"
-$(installpython)
-
-echo "    Install curl downloader"
-$(installcurl)
 
 echo "    Install pip the python package installer if necessary"
 $(installpip)
 
 echo "    Install virtualenv the python environment virtualizer if necessary"
 $(installvirtualenv)
-
-echo "    Install git if necessary"
-$(installgit)
 
 echo "    Install docker if necessary"
 $(installdocker)

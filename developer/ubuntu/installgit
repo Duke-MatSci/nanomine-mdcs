@@ -1,7 +1,0 @@
-function installgit() {
-    if [[ -x git ]] ; then 
-        echo 'git already installed' 
-    else 
-        sudo apt-get -y install git
-    fi
-}
