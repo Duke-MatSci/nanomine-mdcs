@@ -1,0 +1,20 @@
+# Change the default passwords BEFORE configuring mongo
+# Save the file in ~nanomine directory as ~nanomine/nanomine_prod_env
+#                                      yes, for now  ^^^^^^^
+# chmod 660 ~nanomine/nanomine_prod_env  # set read/write for user and group, others no access
+# source ~nanomine/nanomine_prod_env to load the variables if needed. The runserver script will do this itself.
+export NM_HOME=~nanomine
+export NM_SERVER_DIR=$NM_HOME/nanomine
+export NM_PROD_USER="MGIUSER"
+export NM_PROD_PWD="MGIPWD"
+export NM_PROD_MONGO_PORT=27017
+export NM_MONGO_USER="MONGOADMINUSER"
+export NM_MONGO_PWD="MONGOADMINPWD"
+export NM_PROD_DJANGO_SECRET_KEY="secretkey"
+export NM_EMAIL_HOST="EMAILHOST"
+export NM_EMAIL_PORT="25"
+export NM_JOB_DATA=~nanomine/nanomine/static/JOB_DATA/
+export NM_JOB_DATA_URI="/static/JOB_DATA/"
+export NM_WEB_STATIC=${NM_SERVER_DIR}/static
+#export NM_WEB_ADDR="http://localhost:8000"
+#export NM_WEB_ADDR="https://nanomine-dev.oit.duke.edu"
