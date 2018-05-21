@@ -73,8 +73,6 @@ sudo usermod -a -G docker $USER
 echo "   Add the nanomine user to the docker group"
 sudo usermod -a -G docker nanomine
 
-echo "   Install the vim editor"
-$(installvim)
 
 echo all done with phase 1
 
