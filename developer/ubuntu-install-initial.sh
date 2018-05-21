@@ -45,7 +45,7 @@ echo "The install will now run when you press enter. Use Ctrl+C to terminate"
 read
 
 echo "    Create a nanomine user"
-sudo useradd nanomine
+sudo useradd -g nanomine -d /home/nanomine -m nanomine
 
 echo "    Prompt for the new nanomine user\'s password twice.\n        Type something that can be remembered!!!\n        If the password is forgotten later user 'sudo passwd nanomine' to update it."
 sudo passwd nanomine
@@ -59,10 +59,10 @@ $(installpython)
 echo "    Install curl downloader"
 $(installcurl)
 
-echo "    Install python package installer 'pip' if necessary"
+echo "    Install pip the python package installer if necessary"
 $(installpip)
 
-echo "    Install python environment virtualizer 'virtualenv' if necessary"
+echo "    Install virtualenv the python environment virtualizer if necessary"
 $(installvirtualenv)
 
 echo "    Install git if necessary"

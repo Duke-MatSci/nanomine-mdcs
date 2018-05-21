@@ -1,4 +1,5 @@
 function installpip() {
+    echo "install pip if necessary"
     which pip; rv=$?;
     if (( $rv==0 )); then 
         echo 'pip already installed' 
