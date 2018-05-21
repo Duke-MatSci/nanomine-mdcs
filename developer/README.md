@@ -11,10 +11,14 @@ In a terminal window, clone the repository for installation only.
 * sudo apt update; sudo apt -y install git
 
 * git clone https://github.com/Duke-MatSci/nanomine.git
+    * A forked version of the nanomine project may also be used
+        * Consider updating to merge the latest base project code
+        either before cloning or after cloning to ensure the latest
+        install doc and code is used 
 
 * cd nanomine
 
-* git checkout phase1
+* git checkout phase1 # a temporary requirement
 
 * cd developer
 
