@@ -33,7 +33,8 @@ echo "  "
 
 echo "The install will now run when you press enter. Use Ctrl+C to terminate"
 read
-sudo apt-get update; sudo apt-get -y install python git curl vim
+sudo apt-get update; sudo apt-get -y install python git curl vim libxml2-dev libxslt-dev
+
 
 osisok=$(checkosversion)
 if [[ $osisok != "yes" ]]; then
