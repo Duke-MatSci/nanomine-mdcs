@@ -18,6 +18,7 @@ function listXmlsForSchema(schemaName) {
     var schemaId = cur[0]._id.valueOf();	  
     cur = db.xmldata
       .find({'schema':{ $eq: schemaId}});
+    print('count: ' + cur.count());
     if(cur.count() > 0) {
       cur.forEach(function(doc) {
         print('schema: ' + schemaName + ' (' + doc.schema + ') xml: ' + doc.title + ' (' + doc._id + ')');
