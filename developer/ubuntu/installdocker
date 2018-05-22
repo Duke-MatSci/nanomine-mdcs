@@ -1,0 +1,14 @@
+function installdocker() {
+    which docker; rv=$?;
+    if (( $rv==0 )); then 
+        echo 'docker already installed' 
+    else 
+        echo "WARNING: installing edge docker for ubuntu 18.04 -- stable is not ready yet"
+        echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic edge" | sudo tee /etc/apt/sources.list.d/docker.list
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg > docker.key
+        sudo apt-key add docker.key
+        sudo apt-get -y update
+        sudo apt-get -y install docker-ce
+        docker --version
+    fi
+}
