@@ -1275,7 +1275,8 @@ def generateElement(request, element, xmlTree, namespace, choiceInfo=None, fullP
         nb_html_tags = int(request.session['nb_html_tags'])                           
         tagID = "element" + str(nb_html_tags)
         nb_html_tags += 1
-        request.session['nb_html_tags'] = str(nb_html_tags)            
+        request.session['nb_html_tags'] = str(nb_html_tags)
+        logging.debug('in generateElement of curate/ajax.py textCapitalized = '+textCapitalized);
         form_element = FormElement(html_id=tagID, xml_element=xml_element, xml_xpath=fullPath + '[' + str(x+1) +']', name=textCapitalized).save()
         request.session['mapTagID'][tagID] = str(form_element.id)
     
