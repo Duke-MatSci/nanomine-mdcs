@@ -43,14 +43,14 @@ class Message(Document):
     content = StringField()
 
 
-class Exporter(Document):
+class Exporter(Document): #was class Exporter(Document, EmbeddedDocument) when pymongo updated
     """Represents an exporter"""
     name = StringField(required=True, unique=True)
     url = StringField(required=True)
     available_for_all = BooleanField(required=True)
 
 
-class ExporterXslt(Document):
+class ExporterXslt(Document): #was class ExporterXslt(Document, EmbeddedDocument) when pymongo updated
     """Represents an xslt file for exporter"""
     name = StringField(required=True, unique=True)
     filename = StringField(required=True)
@@ -58,7 +58,7 @@ class ExporterXslt(Document):
     available_for_all = BooleanField(required=True)
 
 
-class ResultXslt(Document):
+class ResultXslt(Document): #was class ResultXslt(Document, EmbeddedDocument) when pymongo updated
     """Represents an xslt file for result representation"""
     name = StringField(required=True, unique=True)
     filename = StringField(required=True)
