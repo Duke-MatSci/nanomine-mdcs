@@ -194,7 +194,7 @@ class FormElement(Document):
     html_id = StringField()
     xml_xpath = StringField()  # for siblings module
     xml_element = ReferenceField(XMLElement)
-
+    name = StringField()
 
 class FormData(Document):
     """Stores data being entered and not yet curated"""
