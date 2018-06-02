@@ -245,7 +245,7 @@ USE_TZ = True
 
 # python manage.py collectstatic gathers all static files in this directory
 # link this directory to static in apache configuration file
-STATIC_ROOT = 'var/www/mgi/static/'
+STATIC_ROOT = 'apache_static/'
 
 # static files manually added
 STATIC_URL = '/static/'
