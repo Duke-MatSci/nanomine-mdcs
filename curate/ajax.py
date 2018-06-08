@@ -33,7 +33,7 @@ import django.utils.html
 from django.contrib import messages
 
 from modules import get_module_view
-
+import logging
 
 #XSL file loading
 import os
@@ -1275,7 +1275,8 @@ def generateElement(request, element, xmlTree, namespace, choiceInfo=None, fullP
         nb_html_tags = int(request.session['nb_html_tags'])                           
         tagID = "element" + str(nb_html_tags)
         nb_html_tags += 1
-        request.session['nb_html_tags'] = str(nb_html_tags)            
+        request.session['nb_html_tags'] = str(nb_html_tags)
+        #logging.debug('in generateElement of curate/ajax.py textCapitalized = '+textCapitalized);
         form_element = FormElement(html_id=tagID, xml_element=xml_element, xml_xpath=fullPath + '[' + str(x+1) +']', name=textCapitalized).save()
         request.session['mapTagID'][tagID] = str(form_element.id)
     
@@ -2132,7 +2133,8 @@ def generateForm(request):
             formString += generateChoice(request, elements, xmlDocTree, namespace, edit_data_tree=edit_data_tree)
             formString += "</div>"
     except Exception, e:
-        formString = "UNSUPPORTED ELEMENT FOUND (" + e.message + ")" 
+        formString = "UNSUPPORTED ELEMENT FOUND (" + e.message + ")"
+        logging.exception(formString)
 
     # save the list of elements for the form
     form_data.elements = request.session['mapTagID']
