@@ -6,9 +6,11 @@ from datetime import datetime
 # templateID = '5b07119e168a760b249d2eda' # VM 052418
 # templateID = '5b16a9c8168a76127e8b3231' # VM 060518
 # templateID = '5b1989f2168a76103d722387' # VM 060618
-templateID = '5b199a60168a760fc428a0e7' # VM 060718
-USER = "hby"
-PSWD = "nanomine"
+# templateID = '5b199a60168a760fc428a0e7' # VM 060718
+templateID = '5b1ac75eb3d52f2c0ddeb9e2' # Duke OIT 060718
+
+USER = "hby" # change here
+PSWD = "nanomine" # change here
 MDCS_URL = "http://localhost"
 push_files = glob.glob('./xml/*.xml')
 # print "Number of .XML to post: %d" % (len(push_files))
