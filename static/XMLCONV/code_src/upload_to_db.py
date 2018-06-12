@@ -7,7 +7,8 @@ from datetime import datetime
 # templateID = '5b16a9c8168a76127e8b3231' # VM 060518
 # templateID = '5b1989f2168a76103d722387' # VM 060618
 # templateID = '5b199a60168a760fc428a0e7' # VM 060718
-templateID = '5b1ac75eb3d52f2c0ddeb9e2' # Duke OIT 060718
+# templateID = '5b1ac75eb3d52f2c0ddeb9e2' # Duke OIT 060718
+templateID = '5b20355ab3d52f4ab07653a0' # Duke OIT 060718_nv
 
 USER = "hby" # change here
 PSWD = "nanomine" # change here
